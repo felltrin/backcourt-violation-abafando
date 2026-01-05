@@ -3,7 +3,7 @@
 ## TODO
 
 - [ ] Set up database and data model
-  - [ ] MongoDB
+  - [x] MongoDB
   - [ ] GraphQL
 - [ ] Add activity uploading
 - [ ] Add auth

@@ -4,7 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "next build",
     "check": "next lint && tsc --noEmit",
     "dev": "next dev --turbo",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
@@ -13,7 +12,10 @@
     "lint:fix": "next lint --fix",
     "preview": "next build && next start",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "codegen": "graphql-codegen --config codegen.ts",
+    "graphql": "graphql-codegen --config codegen.ts --watch",
+    "build": "pnpm run codegen && next build"
   },
   "dependencies": {
     "@graphql-tools/schema": "^10.0.30",
@@ -79,6 +81,7 @@
     "@graphql-codegen/cli": "^6.1.0",
     "@graphql-codegen/typescript": "^5.0.7",
     "@graphql-codegen/typescript-resolvers": "^5.1.5",
+    "@netlify/plugin-nextjs": "^5.15.4",
     "@tailwindcss/postcss": "^4.0.15",
     "@types/node": "^20.14.10",
     "@types/react": "^19.0.0",

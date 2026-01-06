@@ -5,7 +5,6 @@
 - [x] Set up database and data model
   - [x] MongoDB
   - [x] GraphQL
-- [x] Fix type errors
-- [ ] Fix lint errors
+- [ ] Fix type errors
 - [ ] Add activity uploading
 - [ ] Add auth

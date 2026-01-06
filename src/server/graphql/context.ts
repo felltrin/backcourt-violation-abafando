@@ -4,7 +4,7 @@ export type Context = {
   prisma: typeof prisma;
 };
 
-export async function createContext(): Promise<Context> {
+export async function createContext(): Promise {
   return {
     prisma,
   };

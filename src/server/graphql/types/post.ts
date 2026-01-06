@@ -13,6 +13,12 @@ builder.prismaObject("Post", {
       description: "The author of this post",
     }),
     authorId: t.exposeString("authorId"),
+    createdAt: t.expose("createdAt", {
+      type: "DateTime",
+    }),
+    updatedAt: t.expose("updatedAt", {
+      type: "DateTime",
+    }),
   }),
 });
 
@@ -31,7 +37,7 @@ builder.queryFields((t) => ({
           args.published !== undefined
             ? { published: args.published }
             : undefined,
-        // orderBy: { createdAt: "desc" },
+        orderBy: { createdAt: "desc" },
       });
     },
   }),
@@ -61,6 +67,7 @@ builder.queryFields((t) => ({
       return prisma.post.findMany({
         ...query,
         where: { authorId: args.authorId },
+        orderBy: { createdAt: "desc" },
       });
     },
   }),

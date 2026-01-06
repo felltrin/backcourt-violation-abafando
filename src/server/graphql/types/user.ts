@@ -11,14 +11,20 @@ builder.prismaObject("User", {
     posts: t.relation("posts", {
       description: "All posts by this user",
     }),
+    createdAt: t.expose("createdAt", {
+      type: "DateTime",
+    }),
+    updatedAt: t.expose("updatedAt", {
+      type: "DateTime",
+    }),
   }),
 });
 
 // Add DateTime scalar
-// builder.scalarType("DateTime", {
-//   serialize: (value) => (value as Date).toISOString(),
-//   parseValue: (value) => new Date(value as string),
-// });
+builder.scalarType("DateTime", {
+  serialize: (value) => (value as Date).toISOString(),
+  parseValue: (value) => new Date(value as string),
+});
 
 // Query fields for User
 builder.queryFields((t) => ({
@@ -28,7 +34,7 @@ builder.queryFields((t) => ({
     resolve: async (query) => {
       return prisma.user.findMany({
         ...query,
-        // orderBy: { createdAt: "desc" },
+        orderBy: { createdAt: "desc" },
       });
     },
   }),

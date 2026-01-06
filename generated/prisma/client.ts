@@ -44,14 +44,6 @@ export { Prisma }
 path.join(__dirname, "libquery_engine-darwin.dylib.node")
 path.join(process.cwd(), "generated/prisma/libquery_engine-darwin.dylib.node")
 
-// file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-rhel-openssl-1.0.x.so.node")
-path.join(process.cwd(), "generated/prisma/libquery_engine-rhel-openssl-1.0.x.so.node")
-
-// file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node")
-path.join(process.cwd(), "generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node")
-
 /**
  * Model User
  * 

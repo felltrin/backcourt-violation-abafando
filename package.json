@@ -16,6 +16,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@graphql-tools/schema": "^10.0.30",
     "@hookform/resolvers": "^3.10.0",
     "@prisma/client": "~6.19.1",
     "@radix-ui/react-accordion": "1.2.2",
@@ -54,6 +55,9 @@
     "date-fns": "4.1.0",
     "dotenv": "^17.2.3",
     "embla-carousel-react": "8.5.1",
+    "graphql": "^16.12.0",
+    "graphql-scalars": "^1.25.0",
+    "graphql-yoga": "^5.18.0",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
     "next": "^15.2.3",
@@ -72,6 +76,9 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
+    "@graphql-codegen/cli": "^6.1.0",
+    "@graphql-codegen/typescript": "^5.0.7",
+    "@graphql-codegen/typescript-resolvers": "^5.1.5",
     "@tailwindcss/postcss": "^4.0.15",
     "@types/node": "^20.14.10",
     "@types/react": "^19.0.0",

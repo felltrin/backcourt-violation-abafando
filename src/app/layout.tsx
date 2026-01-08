@@ -2,8 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import Link from "next/link";
-
+// import "./globals.css"
 import "../styles/globals.css";
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -39,21 +38,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body>
-        {/* <nav className="border-b p-4">
-          <div className="container mx-auto flex gap-4">
-            <Link href="/" className="font-bold">
-              Home
-            </Link>
-            <Link href="/docs" className="hover:underline">
-              Documentation
-            </Link>
-            <Link href="/api/graphql" className="hover:underline">
-              GraphQL Playground
-            </Link>
-          </div>
-        </nav> */}
+      <body className={`font-sans antialiased`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );

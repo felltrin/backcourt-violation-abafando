@@ -1,13 +1,12 @@
-// import { type PrismaClient } from "@prisma/client";
-import { type PrismaClient } from "generated/prisma/client";
-import { prisma } from "../../lib/prisma";
+import { type PrismaClient } from "@prisma/client";
+import { db } from "../db";
 
 export type Context = {
-  prisma: PrismaClient;
+  db: PrismaClient;
 };
 
 export async function createContext(): Promise<Context> {
   return {
-    prisma,
+    db,
   };
 }

@@ -1,4 +1,4 @@
-import { prisma } from "../src/lib/prisma";
+import { prisma } from "../src/server/db";
 
 async function main() {
   // Create a new user with a post

@@ -3,33 +3,33 @@ import { type Context } from "./context";
 export const resolvers = {
   Query: {
     users: async (_parent: unknown, _args: unknown, ctx: Context) => {
-      return ctx.prisma.user.findMany({
+      return ctx.db.user.findMany({
         include: { posts: true },
       });
     },
 
     user: async (_parent: unknown, args: { id: string }, ctx: Context) => {
-      return ctx.prisma.user.findUnique({
+      return ctx.db.user.findUnique({
         where: { id: args.id },
         include: { posts: true },
       });
     },
 
     posts: async (_parent: unknown, _args: unknown, ctx: Context) => {
-      return ctx.prisma.post.findMany({
+      return ctx.db.post.findMany({
         include: { author: true },
       });
     },
 
     post: async (_parent: unknown, args: { id: string }, ctx: Context) => {
-      return ctx.prisma.post.findUnique({
+      return ctx.db.post.findUnique({
         where: { id: args.id },
         include: { author: true },
       });
     },
 
     publishedPosts: async (_parent: unknown, _args: unknown, ctx: Context) => {
-      return ctx.prisma.post.findMany({
+      return ctx.db.post.findMany({
         where: { published: true },
         include: { author: true },
       });
@@ -42,7 +42,7 @@ export const resolvers = {
       args: { email: string; name?: string },
       ctx: Context,
     ) => {
-      return ctx.prisma.user.create({
+      return ctx.db.user.create({
         data: {
           email: args.email,
           name: args.name,
@@ -56,7 +56,7 @@ export const resolvers = {
       args: { id: string; email?: string; name?: string },
       ctx: Context,
     ) => {
-      return ctx.prisma.user.update({
+      return ctx.db.user.update({
         where: { id: args.id },
         data: {
           ...(args.email && { email: args.email }),
@@ -71,7 +71,7 @@ export const resolvers = {
       args: { id: string },
       ctx: Context,
     ) => {
-      return ctx.prisma.user.delete({
+      return ctx.db.user.delete({
         where: { id: args.id },
         include: { posts: true },
       });
@@ -82,7 +82,7 @@ export const resolvers = {
       args: { title: string; content?: string; authorId: string },
       ctx: Context,
     ) => {
-      return ctx.prisma.post.create({
+      return ctx.db.post.create({
         data: {
           title: args.title,
           content: args.content,
@@ -102,7 +102,7 @@ export const resolvers = {
       },
       ctx: Context,
     ) => {
-      return ctx.prisma.post.update({
+      return ctx.db.post.update({
         where: { id: args.id },
         data: {
           ...(args.title && { title: args.title }),
@@ -118,7 +118,7 @@ export const resolvers = {
       args: { id: string },
       ctx: Context,
     ) => {
-      return ctx.prisma.post.delete({
+      return ctx.db.post.delete({
         where: { id: args.id },
         include: { author: true },
       });
@@ -129,7 +129,7 @@ export const resolvers = {
       args: { id: string },
       ctx: Context,
     ) => {
-      return ctx.prisma.post.update({
+      return ctx.db.post.update({
         where: { id: args.id },
         data: { published: true },
         include: { author: true },
@@ -139,7 +139,7 @@ export const resolvers = {
 
   User: {
     posts: async (parent: { id: string }, _args: unknown, ctx: Context) => {
-      return ctx.prisma.post.findMany({
+      return ctx.db.post.findMany({
         where: { authorId: parent.id },
       });
     },
@@ -151,7 +151,7 @@ export const resolvers = {
       _args: unknown,
       ctx: Context,
     ) => {
-      return ctx.prisma.user.findUnique({
+      return ctx.db.user.findUnique({
         where: { id: parent.authorId },
       });
     },

@@ -37,7 +37,8 @@
     "**/*.cjs",
     "**/*.js",
     ".next/types/**/*.ts",
-    "src/__tests__/snapshot.tsx"
+    "src/__tests__/snapshot.tsx",
+    "next.config.mjs"
   ],
   "exclude": ["node_modules", "generated"]
 }

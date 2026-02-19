@@ -1,11 +1,11 @@
-import { prisma } from "../src/server/db";
+import { db } from "../src/server/db";
 
 async function main() {
   // Create a new user with a post
-  const user = await prisma.user.create({
+  const user = await db.user.create({
     data: {
       name: "Alice",
-      email: "alice@prisma.io",
+      email: "alice@db.io",
       posts: {
         create: {
           title: "Hello World",
@@ -21,7 +21,7 @@ async function main() {
   console.log("Created user:", user);
 
   // Fetch all users with their posts
-  const allUsers = await prisma.user.findMany({
+  const allUsers = await db.user.findMany({
     include: {
       posts: true,
     },
@@ -31,10 +31,10 @@ async function main() {
 
 main()
   .then(async () => {
-    await prisma.$disconnect();
+    await db.$disconnect();
   })
   .catch(async (e) => {
     console.error(e);
-    await prisma.$disconnect();
+    await db.$disconnect();
     process.exit(1);
   });

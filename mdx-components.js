@@ -4,6 +4,9 @@ import { useMDXComponents as getThemeComponents } from "nextra-theme-docs"; // n
 const themeComponents = getThemeComponents();
 
 // Merge components
+/**
+ * @param {any} components
+ */
 export function useMDXComponents(components) {
   return {
     ...themeComponents,

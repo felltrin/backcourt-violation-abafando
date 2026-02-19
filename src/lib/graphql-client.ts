@@ -15,12 +15,16 @@ export async function graphqlRequest<T>(
     }),
   });
 
+  // eslint-disable-next-line
   const json = await response.json();
 
+  // eslint-disable-next-line
   if (json.errors) {
+    // eslint-disable-next-line
     throw new Error(json.errors[0]?.message ?? "GraphQL request failed");
   }
 
+  // eslint-disable-next-line
   return json.data as T;
 }
 

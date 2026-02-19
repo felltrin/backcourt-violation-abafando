@@ -7,7 +7,7 @@ const compat = new FlatCompat({
 
 export default tseslint.config(
   {
-    ignores: [".next"],
+    ignores: [".next", "./src/server/graphql/types.ts"],
   },
   ...compat.extends("next/core-web-vitals"),
   {

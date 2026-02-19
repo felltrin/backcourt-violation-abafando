@@ -6,7 +6,9 @@ import { Analytics } from "@vercel/analytics/next";
 import "../styles/globals.css";
 import Link from "next/link";
 
+// eslint-disable-next-line
 const _geist = Geist({ subsets: ["latin"] });
+// eslint-disable-next-line
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

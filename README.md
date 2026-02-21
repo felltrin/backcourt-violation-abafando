@@ -2,9 +2,14 @@
 
 ## TODO
 
+- [ ] Fix CI errors
 - [ ] Set up database and data model
 - [ ] Add activity uploading
 - [ ] Add auth
+
+## 02-20-2026
+
+- I have updated the UI to match the project goals. I just started cleaning up the CI errors
 
 ## Tech Stack
 

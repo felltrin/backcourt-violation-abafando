@@ -30,6 +30,9 @@ export default withNextra({
   typescript: {
     ignoreBuildErrors: true,
   },
+  images: {
+    unoptimized: true,
+  },
   async redirects() {
     return [
       {

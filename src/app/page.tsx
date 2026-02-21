@@ -1,73 +1,161 @@
-import { Header } from "~/components/header";
-import { StatsOverview } from "~/components/stats-overview";
-import { ActivityFeed } from "~/components/activity-feed";
+"use client";
 
-export default function Home() {
+import { useState, useCallback } from "react";
+import { MapView } from "~/components/uber/map-view";
+import { BottomNav } from "~/components/uber/bottom-nav";
+import { HomeScreen } from "~/components/uber/home-screen";
+import { SearchPanel } from "~/components/uber/search-panel";
+import { RideSelector } from "~/components/uber/ride-selector";
+import { RideTracking } from "~/components/uber/ride-tracking";
+import { ActivityScreen } from "~/components/uber/activity-screen";
+import { AccountScreen } from "~/components/uber/account-screen";
+import type { RideType } from "~/lib/mock-data";
+
+type AppView = "home" | "search" | "select-ride" | "tracking";
+type Tab = "home" | "activity" | "account";
+
+export default function UberApp() {
+  const [activeTab, setActiveTab] = useState<Tab>("home");
+  const [view, setView] = useState<AppView>("home");
+  const [destination, setDestination] = useState("");
+  const [destinationAddress, setDestinationAddress] = useState("");
+  const [selectedRide, setSelectedRide] = useState<RideType | null>(null);
+
+  const handleSearchClick = useCallback(() => {
+    setView("search");
+  }, []);
+
+  const handleLocationSelect = useCallback((name: string, address: string) => {
+    setDestination(name);
+    setDestinationAddress(address);
+    setView("select-ride");
+  }, []);
+
+  const handleSelectDestination = useCallback(
+    (name: string, address: string) => {
+      setDestination(name);
+      setDestinationAddress(address);
+      setView("select-ride");
+    },
+    [],
+  );
+
+  const handleConfirmRide = useCallback((ride: RideType) => {
+    setSelectedRide(ride);
+    setView("tracking");
+  }, []);
+
+  const handleRideComplete = useCallback(() => {
+    setSelectedRide(null);
+    setDestination("");
+    setDestinationAddress("");
+    setView("home");
+  }, []);
+
+  const handleTabChange = useCallback(
+    (tab: Tab) => {
+      setActiveTab(tab);
+      if (tab === "home" && view !== "tracking") {
+        setView("home");
+      }
+    },
+    [view],
+  );
+
+  const showMap =
+    activeTab === "home" &&
+    (view === "home" || view === "select-ride" || view === "tracking");
+
+  const showBottomNav = view !== "search" && view !== "tracking";
+
   return (
-    <div className="bg-background min-h-screen">
-      <Header />
-      <main className="container mx-auto max-w-7xl px-4 py-6">
-        <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
-          <div className="space-y-6">
-            <StatsOverview />
-            <ActivityFeed />
+    <div className="bg-background flex h-dvh flex-col overflow-hidden">
+      {/* Map area */}
+      {showMap && (
+        <div className="relative flex-1">
+          <MapView
+            showRoute={view === "select-ride" || view === "tracking"}
+            dropoffCoords={
+              destination ? { lat: 37.7879, lng: -122.4074 } : undefined
+            }
+            driverLocation={
+              view === "tracking" ? { lat: 37.78, lng: -122.42 } : undefined
+            }
+          />
+          {/* Uber logo overlay */}
+          <div className="absolute top-4 left-4 z-10">
+            <div className="bg-background/80 rounded-lg px-3 py-1.5 backdrop-blur-md">
+              <span className="text-foreground text-lg font-bold tracking-tight">
+                RideX
+              </span>
+            </div>
           </div>
-          <aside className="hidden space-y-6 lg:block">
-            <div className="bg-card rounded-lg border p-6">
-              <h3 className="mb-4 text-lg font-semibold">Weekly Summary</h3>
-              <div className="space-y-4">
-                <div>
-                  <div className="mb-1 flex justify-between text-sm">
-                    <span className="text-muted-foreground">Distance</span>
-                    <span className="font-medium">42.5 km</span>
-                  </div>
-                  <div className="bg-muted h-2 overflow-hidden rounded-full">
-                    <div className="bg-primary h-full w-3/4"></div>
-                  </div>
-                </div>
-                <div>
-                  <div className="mb-1 flex justify-between text-sm">
-                    <span className="text-muted-foreground">Time</span>
-                    <span className="font-medium">4h 15m</span>
-                  </div>
-                  <div className="bg-muted h-2 overflow-hidden rounded-full">
-                    <div className="bg-primary h-full w-2/3"></div>
-                  </div>
-                </div>
-                <div>
-                  <div className="mb-1 flex justify-between text-sm">
-                    <span className="text-muted-foreground">Activities</span>
-                    <span className="font-medium">6 of 7</span>
-                  </div>
-                  <div className="bg-muted h-2 overflow-hidden rounded-full">
-                    <div className="bg-primary h-full w-5/6"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-card rounded-lg border p-6">
-              <h3 className="mb-4 text-lg font-semibold">Following</h3>
-              <div className="space-y-3">
-                {["Sarah Chen", "Mike Johnson", "Emma Wilson"].map((name) => (
-                  <div key={name} className="flex items-center gap-3">
-                    <div className="bg-primary/10 flex h-10 w-10 items-center justify-center rounded-full">
-                      <span className="text-primary text-sm font-medium">
-                        {name[0]}
-                      </span>
-                    </div>
-                    <div className="flex-1">
-                      <div className="text-sm font-medium">{name}</div>
-                      <div className="text-muted-foreground text-xs">
-                        Active today
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </aside>
         </div>
-      </main>
+      )}
+
+      {/* Content panels */}
+      <div
+        className={
+          activeTab !== "home"
+            ? "flex-1 overflow-hidden"
+            : view === "search"
+              ? "flex-1 overflow-hidden"
+              : ""
+        }
+      >
+        {activeTab === "home" && (
+          <>
+            {view === "home" && (
+              <div className="bg-background max-h-[55dvh] overflow-y-auto rounded-t-2xl">
+                <div className="bg-muted-foreground/30 mx-auto mt-2 mb-2 h-1 w-10 rounded-full" />
+                <HomeScreen
+                  onSearchClick={handleSearchClick}
+                  onLocationSelect={handleLocationSelect}
+                />
+              </div>
+            )}
+
+            {view === "search" && (
+              <SearchPanel
+                onBack={() => setView("home")}
+                onSelectDestination={handleSelectDestination}
+              />
+            )}
+
+            {view === "select-ride" && (
+              <div className="bg-background rounded-t-2xl">
+                <div className="bg-muted-foreground/30 mx-auto mt-2 mb-1 h-1 w-10 rounded-full" />
+                <RideSelector
+                  destination={destination}
+                  onConfirm={handleConfirmRide}
+                  onBack={() => {
+                    setView("search");
+                  }}
+                />
+              </div>
+            )}
+
+            {view === "tracking" && selectedRide && (
+              <div className="bg-background rounded-t-2xl">
+                <div className="bg-muted-foreground/30 mx-auto mt-2 mb-1 h-1 w-10 rounded-full" />
+                <RideTracking
+                  ride={selectedRide}
+                  destination={destination}
+                  onComplete={handleRideComplete}
+                />
+              </div>
+            )}
+          </>
+        )}
+
+        {activeTab === "activity" && <ActivityScreen />}
+        {activeTab === "account" && <AccountScreen />}
+      </div>
+
+      {/* Bottom navigation */}
+      {showBottomNav && (
+        <BottomNav activeTab={activeTab} onTabChange={handleTabChange} />
+      )}
     </div>
   );
 }

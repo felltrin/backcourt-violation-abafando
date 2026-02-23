@@ -3,6 +3,8 @@
 ## TODO
 
 - [ ] Fix CI errors
+    - [x] Type errors
+    - [ ] Linting errors
 - [ ] Set up database and data model
 - [ ] Add activity uploading
 - [ ] Add auth

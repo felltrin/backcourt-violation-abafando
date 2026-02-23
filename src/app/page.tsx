@@ -86,7 +86,7 @@ export default function UberApp() {
           <div className="absolute top-4 left-4 z-10">
             <div className="bg-background/80 rounded-lg px-3 py-1.5 backdrop-blur-md">
               <span className="text-foreground text-lg font-bold tracking-tight">
-                RideX
+                Zing
               </span>
             </div>
           </div>

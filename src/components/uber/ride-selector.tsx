@@ -35,7 +35,11 @@ export function RideSelector({
 }: RideSelectorProps) {
   const [selectedRide, setSelectedRide] = useState<string>("uberx");
 
-  const selected = rideTypes.find((r) => r.id === selectedRide) || rideTypes[0];
+  const selected = rideTypes.find((r) => r.id === selectedRide) ?? rideTypes[0];
+
+  if (!selected) {
+    return <div>No ride selected!</div>;
+  }
 
   return (
     <div className="bg-background flex flex-col">

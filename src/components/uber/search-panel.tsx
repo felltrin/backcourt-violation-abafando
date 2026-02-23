@@ -16,7 +16,7 @@ export function SearchPanel({
   onSelectDestination,
   initialPickup,
 }: SearchPanelProps) {
-  const [pickup, setPickup] = useState(initialPickup || "Current Location");
+  const [pickup, setPickup] = useState(initialPickup ?? "Current Location");
   const [dropoff, setDropoff] = useState("");
   const [focusedField, setFocusedField] = useState<"pickup" | "dropoff">(
     "dropoff",

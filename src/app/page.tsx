@@ -18,23 +18,25 @@ export default function UberApp() {
   const [activeTab, setActiveTab] = useState<Tab>("home");
   const [view, setView] = useState<AppView>("home");
   const [destination, setDestination] = useState("");
-  const [destinationAddress, setDestinationAddress] = useState("");
+  //   const [destinationAddress, setDestinationAddress] = useState("");
   const [selectedRide, setSelectedRide] = useState<RideType | null>(null);
 
   const handleSearchClick = useCallback(() => {
     setView("search");
   }, []);
 
-  const handleLocationSelect = useCallback((name: string, address: string) => {
+  //   const handleLocationSelect = useCallback((name: string, address: string) => {
+  const handleLocationSelect = useCallback((name: string) => {
     setDestination(name);
-    setDestinationAddress(address);
+    // setDestinationAddress(address);
     setView("select-ride");
   }, []);
 
   const handleSelectDestination = useCallback(
-    (name: string, address: string) => {
+    // (name: string, address: string) => {
+    (name: string) => {
       setDestination(name);
-      setDestinationAddress(address);
+      //   setDestinationAddress(address);
       setView("select-ride");
     },
     [],
@@ -48,7 +50,7 @@ export default function UberApp() {
   const handleRideComplete = useCallback(() => {
     setSelectedRide(null);
     setDestination("");
-    setDestinationAddress("");
+    // setDestinationAddress("");
     setView("home");
   }, []);
 

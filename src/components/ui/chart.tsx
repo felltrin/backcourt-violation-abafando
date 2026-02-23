@@ -8,15 +8,23 @@ import { cn } from "~/lib/utils";
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const;
 
-export type ChartConfig = {
-  [k in string]: {
-    label?: React.ReactNode;
-    icon?: React.ComponentType;
-  } & (
+export type ChartConfig = Record<
+  string,
+  { label?: React.ReactNode; icon?: React.ComponentType } & (
     | { color?: string; theme?: never }
-    | { color?: never; theme: Record<keyof typeof THEMES, string> }
-  );
-};
+    | { color?: string; theme: Record<keyof typeof THEMES, string> }
+  )
+>;
+
+// export type ChartConfig = {
+//   [k in string]: {
+//     label?: React.ReactNode;
+//     icon?: React.ComponentType;
+//   } & (
+//     | { color?: string; theme?: never }
+//     | { color?: never; theme: Record<keyof typeof THEMES, string> }
+//   );
+// };
 
 type ChartContextProps = {
   config: ChartConfig;
@@ -170,6 +178,8 @@ function ChartTooltipContent({
 
   const nestLabel = payload.length === 1 && indicator !== "dot";
 
+  //   type MyType = {};
+
   return (
     <div
       className={cn(
@@ -182,8 +192,9 @@ function ChartTooltipContent({
         {payload.map((item, index) => {
           const key = `${nameKey ?? item.name ?? item.dataKey ?? "value"}`;
           const itemConfig = getPayloadConfigFromPayload(config, item, key);
-          const indicatorColor: string | undefined =
-            color ?? item.payload.fill ?? item.color;
+          //   const indicatorColor: unknown =
+          //     color ?? item.payload.fill ?? item.color;
+          const indicatorColor = color ?? item.color;
 
           return (
             <div
@@ -194,7 +205,7 @@ function ChartTooltipContent({
               )}
             >
               {formatter && item?.value !== undefined && item.name ? (
-                formatter(item.value, item.name, item, index, item.payload)
+                formatter(item.value, item.name, item, index, payload)
               ) : (
                 <>
                   {itemConfig?.icon ? (
@@ -277,12 +288,15 @@ function ChartLegendContent({
       )}
     >
       {payload.map((item) => {
-        const key = `${nameKey ?? item.dataKey ?? "value"}`;
+        const beforeKey: string =
+          nameKey ?? item.dataKey?.toString() ?? "value";
+        const key = `${beforeKey}`;
         const itemConfig = getPayloadConfigFromPayload(config, item, key);
 
         return (
           <div
-            key={item.value}
+            // key={item.value}
+            key={key}
             className={
               "[&>svg]:text-muted-foreground flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3"
             }

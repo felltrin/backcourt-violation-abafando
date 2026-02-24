@@ -2,16 +2,13 @@
 
 ## TODO
 
-- [ ] Fix CI errors
-    - [x] Type errors
-    - [ ] Linting errors
 - [ ] Set up database and data model
 - [ ] Add activity uploading
 - [ ] Add auth
 
-## 02-20-2026
+## 02-22-2026
 
-- I have updated the UI to match the project goals. I just started cleaning up the CI errors
+- I fixed the linting errors to clear the CI. Now, time to setup the database.
 
 ## Tech Stack
 

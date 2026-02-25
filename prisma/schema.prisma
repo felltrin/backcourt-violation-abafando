@@ -5,27 +5,46 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+    provider = "prisma-client"
+    output   = "../generated/prisma"
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
 }
 
 model User {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  email String  @unique
-  name  String?
-  posts Post[]
+    id    String  @id @default(auto()) @map("_id") @db.ObjectId
+    email String  @unique
+    name  String?
+    posts Post[]
 }
 
 model Post {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  String  @db.ObjectId
+    id        String  @id @default(auto()) @map("_id") @db.ObjectId
+    title     String
+    content   String?
+    published Boolean @default(false)
+    author    User    @relation(fields: [authorId], references: [id])
+    authorId  String  @db.ObjectId
+}
+
+enum Icon {
+    CAR       @map("car")
+    CAR_FRONT @map("car-front")
+    CROWN     @map("crown")
+    USERS     @map("users")
+    ZAP       @map("zap")
+}
+
+model RideType {
+    id              String @id @default(auto()) @map("_id") @db.ObjectId
+    name            String
+    description     String
+    capacity        Int
+    eta             String
+    priceMultiplier Int
+    basePrice       Int
+    icon            Icon   @default(CAR)
 }

@@ -3,12 +3,12 @@
 ## TODO
 
 - [ ] Set up database and data model
-- [ ] Add activity uploading
 - [ ] Add auth
+- [ ] Add file uploading
 
-## 02-22-2026
+## 02-25-2026
 
-- I fixed the linting errors to clear the CI. Now, time to setup the database.
+- Location schema is implemented and pushed to database.
 
 ## Tech Stack
 

@@ -88,3 +88,33 @@ model RideHistory {
     duration     String
     distance     String
 }
+
+model Driver {
+   id    String  @id @default(auto()) @map("_id") @db.ObjectId
+   name String
+   rating Int
+   trips Int
+   vehicle String
+   licensePlate String
+   eta Int
+   avatarInitials String
+}
+
+model Promotion {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String
+  code String
+  discount String
+}
+
+
+
+
+
+
+
+
+
+
+

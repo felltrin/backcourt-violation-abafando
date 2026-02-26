@@ -30,14 +30,6 @@ model Post {
     authorId  String  @db.ObjectId
 }
 
-enum Icon {
-    CAR       @map("car")
-    CAR_FRONT @map("car-front")
-    CROWN     @map("crown")
-    USERS     @map("users")
-    ZAP       @map("zap")
-}
-
 model RideType {
     id              String @id @default(auto()) @map("_id") @db.ObjectId
     name            String
@@ -46,37 +38,34 @@ model RideType {
     eta             String
     priceMultiplier Int
     basePrice       Int
-    icon            Icon   @default(CAR)
+    icon            String
 }
 
-model Location {
+model SearchSuggestion {
     id      String @id @default(auto()) @map("_id") @db.ObjectId
     name    String
     address String
-    lat     Int
-    lng     Int
+    lat     Float
+    lng     Float
 }
 
-enum SavedPlaceIcon {
-    HOME      @map("home")
-    BRIEFCASE @map("briefcase")
-    STAR      @map("star")
+model RecentLocation {
+    id      String @id @default(auto()) @map("_id") @db.ObjectId
+    name    String
+    address String
+    lat     Float
+    lng     Float
 }
 
 model SavedPlace {
-    id      String         @id @default(auto()) @map("_id") @db.ObjectId
+    id      String @id @default(auto()) @map("_id") @db.ObjectId
     name    String
     address String
-    icon    SavedPlaceIcon
-}
-
-enum RideHistoryStatus {
-    COMPLETED @map("completed")
-    CANCELLED @map("cancelled")
+    icon    String
 }
 
 model RideHistory {
-    id           String            @id @default(auto()) @map("_id") @db.ObjectId
+    id           String @id @default(auto()) @map("_id") @db.ObjectId
     date         String
     pickup       String
     dropoff      String
@@ -84,37 +73,26 @@ model RideHistory {
     driverName   String
     driverRating Int
     vehicleType  String
-    status       RideHistoryStatus
+    status       String
     duration     String
     distance     String
 }
 
 model Driver {
-   id    String  @id @default(auto()) @map("_id") @db.ObjectId
-   name String
-   rating Int
-   trips Int
-   vehicle String
-   licensePlate String
-   eta Int
-   avatarInitials String
+    id             String @id @default(auto()) @map("_id") @db.ObjectId
+    name           String
+    rating         Int
+    trips          Int
+    vehicle        String
+    licensePlate   String
+    eta            Int
+    avatarInitials String
 }
 
 model Promotion {
-  id    String  @id @default(auto()) @map("_id") @db.ObjectId
-  title String
-  description String
-  code String
-  discount String
+    id          String @id @default(auto()) @map("_id") @db.ObjectId
+    title       String
+    description String
+    code        String
+    discount    String
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -8,7 +8,11 @@
 
 ## 02-25-2026
 
-- Location schema is implemented and pushed to database.
+Location schema is implemented and pushed to database. Next steps:
+
+- [ ] Complete Prisma schema for rest of mock data
+- [ ] Seed data into the database
+- [ ] Update GraphQL schema
 
 ## Tech Stack
 

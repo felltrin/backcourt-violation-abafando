@@ -56,3 +56,35 @@ model Location {
     lat     Int
     lng     Int
 }
+
+enum SavedPlaceIcon {
+    HOME      @map("home")
+    BRIEFCASE @map("briefcase")
+    STAR      @map("star")
+}
+
+model SavedPlace {
+    id      String         @id @default(auto()) @map("_id") @db.ObjectId
+    name    String
+    address String
+    icon    SavedPlaceIcon
+}
+
+enum RideHistoryStatus {
+    COMPLETED @map("completed")
+    CANCELLED @map("cancelled")
+}
+
+model RideHistory {
+    id           String            @id @default(auto()) @map("_id") @db.ObjectId
+    date         String
+    pickup       String
+    dropoff      String
+    price        String
+    driverName   String
+    driverRating Int
+    vehicleType  String
+    status       RideHistoryStatus
+    duration     String
+    distance     String
+}

@@ -48,3 +48,11 @@ model RideType {
     basePrice       Int
     icon            Icon   @default(CAR)
 }
+
+model Location {
+    id      String @id @default(auto()) @map("_id") @db.ObjectId
+    name    String
+    address String
+    lat     Int
+    lng     Int
+}

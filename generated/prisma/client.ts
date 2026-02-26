@@ -29,6 +29,11 @@ export type Post = runtime.Types.Result.DefaultSelection<Prisma.$PostPayload>
  * 
  */
 export type RideType = runtime.Types.Result.DefaultSelection<Prisma.$RideTypePayload>
+/**
+ * Model Location
+ * 
+ */
+export type Location = runtime.Types.Result.DefaultSelection<Prisma.$LocationPayload>
 
 /**
  * Enums
@@ -95,8 +100,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id    String  @id @default(auto()) @map(\"_id\") @db.ObjectId\n  email String  @unique\n  name  String?\n  posts Post[]\n}\n\nmodel Post {\n  id        String  @id @default(auto()) @map(\"_id\") @db.ObjectId\n  title     String\n  content   String?\n  published Boolean @default(false)\n  author    User    @relation(fields: [authorId], references: [id])\n  authorId  String  @db.ObjectId\n}\n\nenum Icon {\n  CAR       @map(\"car\")\n  CAR_FRONT @map(\"car-front\")\n  CROWN     @map(\"crown\")\n  USERS     @map(\"users\")\n  ZAP       @map(\"zap\")\n}\n\nmodel RideType {\n  id              String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name            String\n  description     String\n  capacity        Int\n  eta             String\n  priceMultiplier Int\n  basePrice       Int\n  icon            Icon   @default(CAR)\n}\n",
-  "inlineSchemaHash": "6102e1ea0165bde25cf2a1e020a4a60867949bbcc7a0d749115fd3578d543313",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id    String  @id @default(auto()) @map(\"_id\") @db.ObjectId\n  email String  @unique\n  name  String?\n  posts Post[]\n}\n\nmodel Post {\n  id        String  @id @default(auto()) @map(\"_id\") @db.ObjectId\n  title     String\n  content   String?\n  published Boolean @default(false)\n  author    User    @relation(fields: [authorId], references: [id])\n  authorId  String  @db.ObjectId\n}\n\nenum Icon {\n  CAR       @map(\"car\")\n  CAR_FRONT @map(\"car-front\")\n  CROWN     @map(\"crown\")\n  USERS     @map(\"users\")\n  ZAP       @map(\"zap\")\n}\n\nmodel RideType {\n  id              String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name            String\n  description     String\n  capacity        Int\n  eta             String\n  priceMultiplier Int\n  basePrice       Int\n  icon            Icon   @default(CAR)\n}\n\nmodel Location {\n  id      String @id @default(auto()) @map(\"_id\") @db.ObjectId\n  name    String\n  address String\n  lat     Int\n  lng     Int\n}\n",
+  "inlineSchemaHash": "8fde7bf591d4b8ae5506204caf39cd5927913d2325bda30ae566ce7ff642c5f7",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},
@@ -107,7 +112,7 @@ const config: runtime.GetPrismaClientConfig = {
 }
 config.dirname = __dirname
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"dbName\":\"_id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":[\"ObjectId\",[]],\"default\":{\"name\":\"auto\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"email\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"posts\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Post\",\"nativeType\":null,\"relationName\":\"PostToUser\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"Post\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"dbName\":\"_id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":[\"ObjectId\",[]],\"default\":{\"name\":\"auto\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"title\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"content\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"published\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Boolean\",\"nativeType\":null,\"default\":false,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"author\",\"kind\":\"object\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"User\",\"nativeType\":null,\"relationName\":\"PostToUser\",\"relationFromFields\":[\"authorId\"],\"relationToFields\":[\"id\"],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"authorId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"ObjectId\",[]],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"RideType\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"dbName\":\"_id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":[\"ObjectId\",[]],\"default\":{\"name\":\"auto\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"description\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"capacity\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"eta\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"priceMultiplier\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"basePrice\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"icon\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Icon\",\"nativeType\":null,\"default\":\"CAR\",\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{\"Icon\":{\"values\":[{\"name\":\"CAR\",\"dbName\":\"car\"},{\"name\":\"CAR_FRONT\",\"dbName\":\"car-front\"},{\"name\":\"CROWN\",\"dbName\":\"crown\"},{\"name\":\"USERS\",\"dbName\":\"users\"},{\"name\":\"ZAP\",\"dbName\":\"zap\"}],\"dbName\":null}},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"dbName\":\"_id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":[\"ObjectId\",[]],\"default\":{\"name\":\"auto\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"email\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"posts\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Post\",\"nativeType\":null,\"relationName\":\"PostToUser\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"Post\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"dbName\":\"_id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":[\"ObjectId\",[]],\"default\":{\"name\":\"auto\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"title\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"content\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"published\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Boolean\",\"nativeType\":null,\"default\":false,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"author\",\"kind\":\"object\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"User\",\"nativeType\":null,\"relationName\":\"PostToUser\",\"relationFromFields\":[\"authorId\"],\"relationToFields\":[\"id\"],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"authorId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"ObjectId\",[]],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"RideType\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"dbName\":\"_id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":[\"ObjectId\",[]],\"default\":{\"name\":\"auto\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"description\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"capacity\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"eta\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"priceMultiplier\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"basePrice\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"icon\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Icon\",\"nativeType\":null,\"default\":\"CAR\",\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"Location\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"dbName\":\"_id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":[\"ObjectId\",[]],\"default\":{\"name\":\"auto\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"address\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"lat\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"lng\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Int\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{\"Icon\":{\"values\":[{\"name\":\"CAR\",\"dbName\":\"car\"},{\"name\":\"CAR_FRONT\",\"dbName\":\"car-front\"},{\"name\":\"CROWN\",\"dbName\":\"crown\"},{\"name\":\"USERS\",\"dbName\":\"users\"},{\"name\":\"ZAP\",\"dbName\":\"zap\"}],\"dbName\":null}},\"types\":{}}")
 config.engineWasm = undefined
 config.compilerWasm = undefined
 
@@ -246,6 +251,16 @@ export interface PrismaClient<
     * ```
     */
   get rideType(): Prisma.RideTypeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.location`: Exposes CRUD operations for the **Location** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Locations
+    * const locations = await prisma.location.findMany()
+    * ```
+    */
+  get location(): Prisma.LocationDelegate<ExtArgs, ClientOptions>;
 }
 
 export const PrismaClient = runtime.getPrismaClient(config) as unknown as PrismaClientConstructor
@@ -628,7 +643,8 @@ export namespace Prisma {
   export const ModelName = {
     User: 'User',
     Post: 'Post',
-    RideType: 'RideType'
+    RideType: 'RideType',
+    Location: 'Location'
   } as const
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -647,7 +663,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "post" | "rideType"
+      modelProps: "user" | "post" | "rideType" | "location"
       txIsolationLevel: never
     }
     model: {
@@ -873,6 +889,80 @@ export namespace Prisma {
           }
         }
       }
+      Location: {
+        payload: Prisma.$LocationPayload<ExtArgs>
+        fields: Prisma.LocationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LocationFindUniqueArgs<ExtArgs>
+            result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LocationFindUniqueOrThrowArgs<ExtArgs>
+            result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+          }
+          findFirst: {
+            args: Prisma.LocationFindFirstArgs<ExtArgs>
+            result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LocationFindFirstOrThrowArgs<ExtArgs>
+            result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+          }
+          findMany: {
+            args: Prisma.LocationFindManyArgs<ExtArgs>
+            result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>[]
+          }
+          create: {
+            args: Prisma.LocationCreateArgs<ExtArgs>
+            result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+          }
+          createMany: {
+            args: Prisma.LocationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.LocationDeleteArgs<ExtArgs>
+            result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+          }
+          update: {
+            args: Prisma.LocationUpdateArgs<ExtArgs>
+            result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+          }
+          deleteMany: {
+            args: Prisma.LocationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LocationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.LocationUpsertArgs<ExtArgs>
+            result: runtime.Types.Utils.PayloadToResult<Prisma.$LocationPayload>
+          }
+          aggregate: {
+            args: Prisma.LocationAggregateArgs<ExtArgs>
+            result: runtime.Types.Utils.Optional<AggregateLocation>
+          }
+          groupBy: {
+            args: Prisma.LocationGroupByArgs<ExtArgs>
+            result: runtime.Types.Utils.Optional<LocationGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.LocationFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.LocationAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.LocationCountArgs<ExtArgs>
+            result: runtime.Types.Utils.Optional<LocationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -947,6 +1037,7 @@ export namespace Prisma {
     user?: UserOmit
     post?: PostOmit
     rideType?: RideTypeOmit
+    location?: LocationOmit
   }
 
   /* Types for Logging */
@@ -4038,6 +4129,976 @@ export namespace Prisma {
 
 
   /**
+   * Model Location
+   */
+
+  export type AggregateLocation = {
+    _count: LocationCountAggregateOutputType | null
+    _avg: LocationAvgAggregateOutputType | null
+    _sum: LocationSumAggregateOutputType | null
+    _min: LocationMinAggregateOutputType | null
+    _max: LocationMaxAggregateOutputType | null
+  }
+
+  export type LocationAvgAggregateOutputType = {
+    lat: number | null
+    lng: number | null
+  }
+
+  export type LocationSumAggregateOutputType = {
+    lat: number | null
+    lng: number | null
+  }
+
+  export type LocationMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    address: string | null
+    lat: number | null
+    lng: number | null
+  }
+
+  export type LocationMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    address: string | null
+    lat: number | null
+    lng: number | null
+  }
+
+  export type LocationCountAggregateOutputType = {
+    id: number
+    name: number
+    address: number
+    lat: number
+    lng: number
+    _all: number
+  }
+
+
+  export type LocationAvgAggregateInputType = {
+    lat?: true
+    lng?: true
+  }
+
+  export type LocationSumAggregateInputType = {
+    lat?: true
+    lng?: true
+  }
+
+  export type LocationMinAggregateInputType = {
+    id?: true
+    name?: true
+    address?: true
+    lat?: true
+    lng?: true
+  }
+
+  export type LocationMaxAggregateInputType = {
+    id?: true
+    name?: true
+    address?: true
+    lat?: true
+    lng?: true
+  }
+
+  export type LocationCountAggregateInputType = {
+    id?: true
+    name?: true
+    address?: true
+    lat?: true
+    lng?: true
+    _all?: true
+  }
+
+  export type LocationAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which Location to aggregate.
+     */
+    where?: LocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Locations to fetch.
+     */
+    orderBy?: LocationOrderByWithRelationInput | LocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Locations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Locations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Locations
+    **/
+    _count?: true | LocationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LocationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LocationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LocationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LocationMaxAggregateInputType
+  }
+
+  export type GetLocationAggregateType<T extends LocationAggregateArgs> = {
+        [P in keyof T & keyof AggregateLocation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLocation[P]>
+      : GetScalarType<T[P], AggregateLocation[P]>
+  }
+
+
+
+
+  export type LocationGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: LocationWhereInput
+    orderBy?: LocationOrderByWithAggregationInput | LocationOrderByWithAggregationInput[]
+    by: LocationScalarFieldEnum[] | LocationScalarFieldEnum
+    having?: LocationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LocationCountAggregateInputType | true
+    _avg?: LocationAvgAggregateInputType
+    _sum?: LocationSumAggregateInputType
+    _min?: LocationMinAggregateInputType
+    _max?: LocationMaxAggregateInputType
+  }
+
+  export type LocationGroupByOutputType = {
+    id: string
+    name: string
+    address: string
+    lat: number
+    lng: number
+    _count: LocationCountAggregateOutputType | null
+    _avg: LocationAvgAggregateOutputType | null
+    _sum: LocationSumAggregateOutputType | null
+    _min: LocationMinAggregateOutputType | null
+    _max: LocationMaxAggregateOutputType | null
+  }
+
+  type GetLocationGroupByPayload<T extends LocationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LocationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LocationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LocationGroupByOutputType[P]>
+            : GetScalarType<T[P], LocationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LocationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    address?: boolean
+    lat?: boolean
+    lng?: boolean
+  }, ExtArgs["result"]["location"]>
+
+
+
+  export type LocationSelectScalar = {
+    id?: boolean
+    name?: boolean
+    address?: boolean
+    lat?: boolean
+    lng?: boolean
+  }
+
+  export type LocationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "address" | "lat" | "lng", ExtArgs["result"]["location"]>
+
+  export type $LocationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "Location"
+    objects: {}
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      address: string
+      lat: number
+      lng: number
+    }, ExtArgs["result"]["location"]>
+    composites: {}
+  }
+
+  export type LocationGetPayload<S extends boolean | null | undefined | LocationDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$LocationPayload, S>
+
+  export type LocationCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> =
+    Omit<LocationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LocationCountAggregateInputType | true
+    }
+
+  export interface LocationDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Location'], meta: { name: 'Location' } }
+    /**
+     * Find zero or one Location that matches the filter.
+     * @param {LocationFindUniqueArgs} args - Arguments to find a Location
+     * @example
+     * // Get one Location
+     * const location = await prisma.location.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LocationFindUniqueArgs>(args: SelectSubset<T, LocationFindUniqueArgs<ExtArgs>>): Prisma__LocationClient<runtime.Types.Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Location that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LocationFindUniqueOrThrowArgs} args - Arguments to find a Location
+     * @example
+     * // Get one Location
+     * const location = await prisma.location.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LocationFindUniqueOrThrowArgs>(args: SelectSubset<T, LocationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LocationClient<runtime.Types.Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Location that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationFindFirstArgs} args - Arguments to find a Location
+     * @example
+     * // Get one Location
+     * const location = await prisma.location.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LocationFindFirstArgs>(args?: SelectSubset<T, LocationFindFirstArgs<ExtArgs>>): Prisma__LocationClient<runtime.Types.Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Location that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationFindFirstOrThrowArgs} args - Arguments to find a Location
+     * @example
+     * // Get one Location
+     * const location = await prisma.location.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LocationFindFirstOrThrowArgs>(args?: SelectSubset<T, LocationFindFirstOrThrowArgs<ExtArgs>>): Prisma__LocationClient<runtime.Types.Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Locations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Locations
+     * const locations = await prisma.location.findMany()
+     * 
+     * // Get first 10 Locations
+     * const locations = await prisma.location.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const locationWithIdOnly = await prisma.location.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LocationFindManyArgs>(args?: SelectSubset<T, LocationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Location.
+     * @param {LocationCreateArgs} args - Arguments to create a Location.
+     * @example
+     * // Create one Location
+     * const Location = await prisma.location.create({
+     *   data: {
+     *     // ... data to create a Location
+     *   }
+     * })
+     * 
+     */
+    create<T extends LocationCreateArgs>(args: SelectSubset<T, LocationCreateArgs<ExtArgs>>): Prisma__LocationClient<runtime.Types.Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Locations.
+     * @param {LocationCreateManyArgs} args - Arguments to create many Locations.
+     * @example
+     * // Create many Locations
+     * const location = await prisma.location.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LocationCreateManyArgs>(args?: SelectSubset<T, LocationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Location.
+     * @param {LocationDeleteArgs} args - Arguments to delete one Location.
+     * @example
+     * // Delete one Location
+     * const Location = await prisma.location.delete({
+     *   where: {
+     *     // ... filter to delete one Location
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LocationDeleteArgs>(args: SelectSubset<T, LocationDeleteArgs<ExtArgs>>): Prisma__LocationClient<runtime.Types.Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Location.
+     * @param {LocationUpdateArgs} args - Arguments to update one Location.
+     * @example
+     * // Update one Location
+     * const location = await prisma.location.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LocationUpdateArgs>(args: SelectSubset<T, LocationUpdateArgs<ExtArgs>>): Prisma__LocationClient<runtime.Types.Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Locations.
+     * @param {LocationDeleteManyArgs} args - Arguments to filter Locations to delete.
+     * @example
+     * // Delete a few Locations
+     * const { count } = await prisma.location.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LocationDeleteManyArgs>(args?: SelectSubset<T, LocationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Locations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Locations
+     * const location = await prisma.location.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LocationUpdateManyArgs>(args: SelectSubset<T, LocationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Location.
+     * @param {LocationUpsertArgs} args - Arguments to update or create a Location.
+     * @example
+     * // Update or create a Location
+     * const location = await prisma.location.upsert({
+     *   create: {
+     *     // ... data to create a Location
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Location we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LocationUpsertArgs>(args: SelectSubset<T, LocationUpsertArgs<ExtArgs>>): Prisma__LocationClient<runtime.Types.Result.GetResult<Prisma.$LocationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Locations that matches the filter.
+     * @param {LocationFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const location = await prisma.location.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: LocationFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Location.
+     * @param {LocationAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const location = await prisma.location.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: LocationAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of Locations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationCountArgs} args - Arguments to filter Locations to count.
+     * @example
+     * // Count the number of Locations
+     * const count = await prisma.location.count({
+     *   where: {
+     *     // ... the filter for the Locations we want to count
+     *   }
+     * })
+    **/
+    count<T extends LocationCountArgs>(
+      args?: Subset<T, LocationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends runtime.Types.Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LocationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Location.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LocationAggregateArgs>(args: Subset<T, LocationAggregateArgs>): Prisma.PrismaPromise<GetLocationAggregateType<T>>
+
+    /**
+     * Group by Location.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LocationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LocationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LocationGroupByArgs['orderBy'] }
+        : { orderBy?: LocationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LocationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLocationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Location model
+   */
+  readonly fields: LocationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Location.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LocationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Location model
+   */
+  export interface LocationFieldRefs {
+    readonly id: FieldRef<"Location", 'String'>
+    readonly name: FieldRef<"Location", 'String'>
+    readonly address: FieldRef<"Location", 'String'>
+    readonly lat: FieldRef<"Location", 'Int'>
+    readonly lng: FieldRef<"Location", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Location findUnique
+   */
+  export type LocationFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Filter, which Location to fetch.
+     */
+    where: LocationWhereUniqueInput
+  }
+
+  /**
+   * Location findUniqueOrThrow
+   */
+  export type LocationFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Filter, which Location to fetch.
+     */
+    where: LocationWhereUniqueInput
+  }
+
+  /**
+   * Location findFirst
+   */
+  export type LocationFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Filter, which Location to fetch.
+     */
+    where?: LocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Locations to fetch.
+     */
+    orderBy?: LocationOrderByWithRelationInput | LocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Locations.
+     */
+    cursor?: LocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Locations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Locations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Locations.
+     */
+    distinct?: LocationScalarFieldEnum | LocationScalarFieldEnum[]
+  }
+
+  /**
+   * Location findFirstOrThrow
+   */
+  export type LocationFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Filter, which Location to fetch.
+     */
+    where?: LocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Locations to fetch.
+     */
+    orderBy?: LocationOrderByWithRelationInput | LocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Locations.
+     */
+    cursor?: LocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Locations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Locations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Locations.
+     */
+    distinct?: LocationScalarFieldEnum | LocationScalarFieldEnum[]
+  }
+
+  /**
+   * Location findMany
+   */
+  export type LocationFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Filter, which Locations to fetch.
+     */
+    where?: LocationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Locations to fetch.
+     */
+    orderBy?: LocationOrderByWithRelationInput | LocationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Locations.
+     */
+    cursor?: LocationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Locations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Locations.
+     */
+    skip?: number
+    distinct?: LocationScalarFieldEnum | LocationScalarFieldEnum[]
+  }
+
+  /**
+   * Location create
+   */
+  export type LocationCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Location.
+     */
+    data: XOR<LocationCreateInput, LocationUncheckedCreateInput>
+  }
+
+  /**
+   * Location createMany
+   */
+  export type LocationCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Locations.
+     */
+    data: LocationCreateManyInput | LocationCreateManyInput[]
+  }
+
+  /**
+   * Location update
+   */
+  export type LocationUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Location.
+     */
+    data: XOR<LocationUpdateInput, LocationUncheckedUpdateInput>
+    /**
+     * Choose, which Location to update.
+     */
+    where: LocationWhereUniqueInput
+  }
+
+  /**
+   * Location updateMany
+   */
+  export type LocationUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Locations.
+     */
+    data: XOR<LocationUpdateManyMutationInput, LocationUncheckedUpdateManyInput>
+    /**
+     * Filter which Locations to update
+     */
+    where?: LocationWhereInput
+    /**
+     * Limit how many Locations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Location upsert
+   */
+  export type LocationUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Location to update in case it exists.
+     */
+    where: LocationWhereUniqueInput
+    /**
+     * In case the Location found by the `where` argument doesn't exist, create a new Location with this data.
+     */
+    create: XOR<LocationCreateInput, LocationUncheckedCreateInput>
+    /**
+     * In case the Location was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LocationUpdateInput, LocationUncheckedUpdateInput>
+  }
+
+  /**
+   * Location delete
+   */
+  export type LocationDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+    /**
+     * Filter which Location to delete.
+     */
+    where: LocationWhereUniqueInput
+  }
+
+  /**
+   * Location deleteMany
+   */
+  export type LocationDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which Locations to delete
+     */
+    where?: LocationWhereInput
+    /**
+     * Limit how many Locations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Location findRaw
+   */
+  export type LocationFindRawArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Location aggregateRaw
+   */
+  export type LocationAggregateRawArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * Location without action
+   */
+  export type LocationDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Location
+     */
+    select?: LocationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Location
+     */
+    omit?: LocationOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -4073,6 +5134,17 @@ export namespace Prisma {
   } as const
 
   export type RideTypeScalarFieldEnum = (typeof RideTypeScalarFieldEnum)[keyof typeof RideTypeScalarFieldEnum]
+
+
+  export const LocationScalarFieldEnum = {
+    id: 'id',
+    name: 'name',
+    address: 'address',
+    lat: 'lat',
+    lng: 'lng'
+  } as const
+
+  export type LocationScalarFieldEnum = (typeof LocationScalarFieldEnum)[keyof typeof LocationScalarFieldEnum]
 
 
   export const SortOrder = {
@@ -4331,6 +5403,60 @@ export namespace Prisma {
     icon?: EnumIconWithAggregatesFilter<"RideType"> | $Enums.Icon
   }
 
+  export type LocationWhereInput = {
+    AND?: LocationWhereInput | LocationWhereInput[]
+    OR?: LocationWhereInput[]
+    NOT?: LocationWhereInput | LocationWhereInput[]
+    id?: StringFilter<"Location"> | string
+    name?: StringFilter<"Location"> | string
+    address?: StringFilter<"Location"> | string
+    lat?: IntFilter<"Location"> | number
+    lng?: IntFilter<"Location"> | number
+  }
+
+  export type LocationOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+  }
+
+  export type LocationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LocationWhereInput | LocationWhereInput[]
+    OR?: LocationWhereInput[]
+    NOT?: LocationWhereInput | LocationWhereInput[]
+    name?: StringFilter<"Location"> | string
+    address?: StringFilter<"Location"> | string
+    lat?: IntFilter<"Location"> | number
+    lng?: IntFilter<"Location"> | number
+  }, "id">
+
+  export type LocationOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+    _count?: LocationCountOrderByAggregateInput
+    _avg?: LocationAvgOrderByAggregateInput
+    _max?: LocationMaxOrderByAggregateInput
+    _min?: LocationMinOrderByAggregateInput
+    _sum?: LocationSumOrderByAggregateInput
+  }
+
+  export type LocationScalarWhereWithAggregatesInput = {
+    AND?: LocationScalarWhereWithAggregatesInput | LocationScalarWhereWithAggregatesInput[]
+    OR?: LocationScalarWhereWithAggregatesInput[]
+    NOT?: LocationScalarWhereWithAggregatesInput | LocationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Location"> | string
+    name?: StringWithAggregatesFilter<"Location"> | string
+    address?: StringWithAggregatesFilter<"Location"> | string
+    lat?: IntWithAggregatesFilter<"Location"> | number
+    lng?: IntWithAggregatesFilter<"Location"> | number
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -4495,6 +5621,58 @@ export namespace Prisma {
     priceMultiplier?: IntFieldUpdateOperationsInput | number
     basePrice?: IntFieldUpdateOperationsInput | number
     icon?: EnumIconFieldUpdateOperationsInput | $Enums.Icon
+  }
+
+  export type LocationCreateInput = {
+    id?: string
+    name: string
+    address: string
+    lat: number
+    lng: number
+  }
+
+  export type LocationUncheckedCreateInput = {
+    id?: string
+    name: string
+    address: string
+    lat: number
+    lng: number
+  }
+
+  export type LocationUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    lat?: IntFieldUpdateOperationsInput | number
+    lng?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LocationUncheckedUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    lat?: IntFieldUpdateOperationsInput | number
+    lng?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LocationCreateManyInput = {
+    id?: string
+    name: string
+    address: string
+    lat: number
+    lng: number
+  }
+
+  export type LocationUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    lat?: IntFieldUpdateOperationsInput | number
+    lng?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LocationUncheckedUpdateManyInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    lat?: IntFieldUpdateOperationsInput | number
+    lng?: IntFieldUpdateOperationsInput | number
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -4722,6 +5900,40 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumIconFilter<$PrismaModel>
     _max?: NestedEnumIconFilter<$PrismaModel>
+  }
+
+  export type LocationCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+  }
+
+  export type LocationAvgOrderByAggregateInput = {
+    lat?: SortOrder
+    lng?: SortOrder
+  }
+
+  export type LocationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+  }
+
+  export type LocationMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    address?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+  }
+
+  export type LocationSumOrderByAggregateInput = {
+    lat?: SortOrder
+    lng?: SortOrder
   }
 
   export type PostCreateNestedManyWithoutAuthorInput = {

@@ -14,6 +14,16 @@ type Post {
   authorId: String!
 }
 
+type RideType {
+  id: ID!
+  name: String!
+  description: String!
+  capacity: Int!
+  eta: String!
+  priceMultiplier: Int!
+  basePrice: Int!
+}
+
 type Query {
   users: [User!]!
   user(id: ID!): User

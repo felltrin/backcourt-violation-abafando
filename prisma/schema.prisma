@@ -36,8 +36,8 @@ model RideType {
     description     String
     capacity        Int
     eta             String
-    priceMultiplier Int
-    basePrice       Int
+    priceMultiplier Float
+    basePrice       Float
     icon            String
 }
 
@@ -71,7 +71,7 @@ model RideHistory {
     dropoff      String
     price        String
     driverName   String
-    driverRating Int
+    driverRating Float
     vehicleType  String
     status       String
     duration     String
@@ -81,7 +81,7 @@ model RideHistory {
 model Driver {
     id             String @id @default(auto()) @map("_id") @db.ObjectId
     name           String
-    rating         Int
+    rating         Float
     trips          Int
     vehicle        String
     licensePlate   String

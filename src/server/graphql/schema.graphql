@@ -20,8 +20,56 @@ type RideType {
   description: String!
   capacity: Int!
   eta: String!
-  priceMultiplier: Int!
-  basePrice: Int!
+  priceMultiplier: Float!
+  basePrice: Float!
+}
+
+type SearchSuggestion {
+  id: ID!
+  name: String!
+  address: String!
+  lat: Float!
+  lng: Float!
+}
+
+type RecentLocation {
+  id: ID!
+  name: String!
+  address: String!
+  lat: Float!
+  lng: Float!
+}
+
+type SavedPlace {
+  id: ID!
+  name: String!
+  address: String!
+  icon: String!
+}
+
+type RideHistory {
+  id: ID!
+  date: String!
+  pickup: String!
+  dropoff: String!
+  price: String!
+  driverName: String!
+  driverRating: Float!
+  vehicleType: String!
+  status: String!
+  duration: String!
+  distance: String!
+}
+
+type Driver {
+  id: ID!
+  name: String!
+  rating: Float!
+  trips: Int!
+  vehicle: String!
+  licensePlate: String!
+  eta: Int!
+  avatarInitials: String!
 }
 
 type Query {

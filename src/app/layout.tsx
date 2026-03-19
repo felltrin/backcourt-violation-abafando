@@ -6,7 +6,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "RideX",
+  title: "ZingX",
   description: "Request a ride, hop in, and go.",
   icons: {
     icon: [

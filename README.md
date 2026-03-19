@@ -6,13 +6,13 @@
 - [ ] Add auth
 - [ ] Add file uploading
 
-## 02-25-2026
+## 03-19-2026
 
-Location schema is implemented and pushed to database. Next steps:
+The new component with the server props is set up to fetch from database. Next steps:
 
-- [ ] Complete Prisma schema for rest of mock data
-- [ ] Seed data into the database
-- [ ] Update GraphQL schema
+- [x] Complete Prisma schema for rest of mock data
+- [x] Seed data into the database
+- [x] Update GraphQL schema
 
 ## Tech Stack
 

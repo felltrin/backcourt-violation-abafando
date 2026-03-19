@@ -9,28 +9,27 @@ import { RideSelector } from "~/components/uber/ride-selector";
 import { RideTracking } from "~/components/uber/ride-tracking";
 import { ActivityScreen } from "~/components/uber/activity-screen";
 import { AccountScreen } from "~/components/uber/account-screen";
-import type { RideType } from "~/lib/mock-data";
 import type {
-  DriverScalarFieldEnum,
-  PromotionScalarFieldEnum,
-  RecentLocationScalarFieldEnum,
-  RideHistoryScalarFieldEnum,
-  RideTypeScalarFieldEnum,
-  SavedPlaceScalarFieldEnum,
-  SearchSuggestionScalarFieldEnum,
-} from "generated/prisma/internal/prismaNamespace";
+  Driver,
+  Location,
+  Promotion,
+  RideHistory,
+  RideType,
+  SavedPlace,
+} from "~/lib/mock-data";
 
 type AppView = "home" | "search" | "select-ride" | "tracking";
 type Tab = "home" | "activity" | "account";
 
 export default function UberApp(props: {
-  rideTypes: (typeof RideTypeScalarFieldEnum)[];
-  savedPlaces: (typeof SavedPlaceScalarFieldEnum)[];
-  recentLocations: (typeof RecentLocationScalarFieldEnum)[];
-  rideHistory: (typeof RideHistoryScalarFieldEnum)[];
-  drivers: (typeof DriverScalarFieldEnum)[];
-  promotions: (typeof PromotionScalarFieldEnum)[];
-  searchSuggestions: (typeof SearchSuggestionScalarFieldEnum)[];
+  rideTypes: RideType[];
+  savedPlaces: SavedPlace[];
+  recentLocations: Location[];
+  rideHistory: RideHistory[];
+  // TODO: change this to include an array of drivers as opposed to a single driver
+  driver: Driver;
+  promotions: Promotion[];
+  searchSuggestions: Location[];
 }) {
   const [activeTab, setActiveTab] = useState<Tab>("home");
   const [view, setView] = useState<AppView>("home");

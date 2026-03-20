@@ -18,7 +18,7 @@ interface HomeScreenProps {
 
 const GQL_ENDPOINT = "http://localhost:3000/api/graphql";
 
-const myQuery = `
+const savedPlacesQuery = `
   query GetSavedPlaces {
     savedPlaces {
       id
@@ -44,7 +44,7 @@ export function HomeScreen({
   // auth session check
 
   useEffect(() => {
-    async function graphqlQuery(query: string, variables = {}) {
+    async function savedPlacesGQLQuery(query: string, variables = {}) {
       const response = await fetch(GQL_ENDPOINT, {
         method: "POST",
         headers: {
@@ -60,13 +60,11 @@ export function HomeScreen({
       });
 
       const result = await response.json();
-      setSavedPlaces(result.data.savedPlaces);
-      for (let i = 0; i < savedPlaces.length; i++) {
-        console.log(savedPlaces[i]);
-      }
+      const savedPlacesData = result.data.savedPlaces;
+      setSavedPlaces(savedPlacesData);
     }
 
-    graphqlQuery(myQuery);
+    savedPlacesGQLQuery(savedPlacesQuery);
   }, []);
 
   return (

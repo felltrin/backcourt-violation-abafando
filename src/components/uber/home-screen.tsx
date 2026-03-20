@@ -7,9 +7,12 @@ import {
   MapPin,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { promotions } from "~/lib/mock-data";
 import { cn } from "~/lib/utils";
-import type { RecentLocation, SavedPlace } from "~/server/graphql/types";
+import type {
+  Promotion,
+  RecentLocation,
+  SavedPlace,
+} from "~/server/graphql/types";
 
 interface HomeScreenProps {
   onSearchClick: () => void;
@@ -39,6 +42,17 @@ const recentLocationsQuery = `
   }
 `;
 
+const promotionsQuery = `
+  query GetPromotions {
+    promotions {
+      id
+      title
+      description
+      discount
+    }
+  }
+`;
+
 const savedPlaceIcons = {
   home: Home,
   briefcase: Briefcase,
@@ -51,6 +65,7 @@ export function HomeScreen({
 }: HomeScreenProps) {
   const [savedPlaces, setSavedPlaces] = useState<SavedPlace[]>([]);
   const [recentLocations, setRecentLocations] = useState<RecentLocation[]>([]);
+  const [promotions, setPromotions] = useState<Promotion[]>([]);
 
   // auth session check
 
@@ -95,8 +110,29 @@ export function HomeScreen({
       setRecentLocations(recentLocationsData);
     }
 
+    async function promotionsGQLQuery(query: string, variables = {}) {
+      const response = await fetch(GQL_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          // Add authentication headers if needed, e.g.,
+          // 'Authorization': 'Bearer YOUR_TOKEN',
+        },
+        body: JSON.stringify({
+          query: query,
+          variables: variables,
+        }),
+      });
+
+      const result = await response.json();
+      const promotionsData = result.data.promotions;
+      setPromotions(promotionsData);
+    }
+
     savedPlacesGQLQuery(savedPlacesQuery);
     recentLocationsGQLQuery(recentLocationsQuery);
+    promotionsGQLQuery(promotionsQuery);
   }, []);
 
   return (

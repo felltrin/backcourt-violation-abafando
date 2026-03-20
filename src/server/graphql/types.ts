@@ -94,11 +94,22 @@ export type Post = {
   title: Scalars['String']['output'];
 };
 
+export type Promotion = {
+  __typename?: 'Promotion';
+  code: Scalars['String']['output'];
+  description: Scalars['String']['output'];
+  discount: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  title: Scalars['String']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
   post?: Maybe<Post>;
   posts: Array<Post>;
+  promotions?: Maybe<Array<Promotion>>;
   publishedPosts: Array<Post>;
+  recentLocations?: Maybe<Array<RecentLocation>>;
   savedPlaces?: Maybe<Array<SavedPlace>>;
   user?: Maybe<User>;
   users: Array<User>;
@@ -254,6 +265,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<Record<PropertyKey, never>>;
   Post: ResolverTypeWrapper<Post>;
+  Promotion: ResolverTypeWrapper<Promotion>;
   Query: ResolverTypeWrapper<Record<PropertyKey, never>>;
   RecentLocation: ResolverTypeWrapper<RecentLocation>;
   RideHistory: ResolverTypeWrapper<RideHistory>;
@@ -273,6 +285,7 @@ export type ResolversParentTypes = {
   Int: Scalars['Int']['output'];
   Mutation: Record<PropertyKey, never>;
   Post: Post;
+  Promotion: Promotion;
   Query: Record<PropertyKey, never>;
   RecentLocation: RecentLocation;
   RideHistory: RideHistory;
@@ -313,10 +326,20 @@ export type PostResolvers<ContextType = Context, ParentType extends ResolversPar
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
+export type PromotionResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Promotion'] = ResolversParentTypes['Promotion']> = {
+  code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  discount?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   post?: Resolver<Maybe<ResolversTypes['Post']>, ParentType, ContextType, RequireFields<QueryPostArgs, 'id'>>;
   posts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
+  promotions?: Resolver<Maybe<Array<ResolversTypes['Promotion']>>, ParentType, ContextType>;
   publishedPosts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
+  recentLocations?: Resolver<Maybe<Array<ResolversTypes['RecentLocation']>>, ParentType, ContextType>;
   savedPlaces?: Resolver<Maybe<Array<ResolversTypes['SavedPlace']>>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
@@ -380,6 +403,7 @@ export type Resolvers<ContextType = Context> = {
   Driver?: DriverResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
+  Promotion?: PromotionResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   RecentLocation?: RecentLocationResolvers<ContextType>;
   RideHistory?: RideHistoryResolvers<ContextType>;

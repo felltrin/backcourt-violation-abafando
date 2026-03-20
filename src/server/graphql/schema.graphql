@@ -72,6 +72,14 @@ type Driver {
   avatarInitials: String!
 }
 
+type Promotion {
+  id: ID!
+  title: String!
+  description: String!
+  code: String!
+  discount: String!
+}
+
 type Query {
   users: [User!]!
   user(id: ID!): User
@@ -81,6 +89,7 @@ type Query {
 
   savedPlaces: [SavedPlace!]
   recentLocations: [RecentLocation!]
+  promotions: [Promotion!]
 }
 
 type Mutation {

@@ -42,6 +42,10 @@ export const resolvers = {
     recentLocations: async (_parent: unknown, _args: unknown, ctx: Context) => {
       return ctx.db.recentLocation.findMany();
     },
+
+    promotions: async (_parent: unknown, _args: unknown, ctx: Context) => {
+      return ctx.db.promotion.findMany();
+    },
   },
 
   Mutation: {

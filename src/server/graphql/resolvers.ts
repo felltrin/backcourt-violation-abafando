@@ -38,6 +38,10 @@ export const resolvers = {
     savedPlaces: async (_parent: unknown, _args: unknown, ctx: Context) => {
       return ctx.db.savedPlace.findMany();
     },
+
+    recentLocations: async (_parent: unknown, _args: unknown, ctx: Context) => {
+      return ctx.db.recentLocation.findMany();
+    },
   },
 
   Mutation: {

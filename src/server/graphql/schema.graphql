@@ -78,7 +78,9 @@ type Query {
   posts: [Post!]!
   post(id: ID!): Post
   publishedPosts: [Post!]!
+
   savedPlaces: [SavedPlace!]
+  recentLocations: [RecentLocation!]
 }
 
 type Mutation {

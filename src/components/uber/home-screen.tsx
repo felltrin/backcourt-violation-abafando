@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Search,
   Home,
@@ -8,13 +6,28 @@ import {
   ChevronRight,
   MapPin,
 } from "lucide-react";
-import { savedPlaces, recentLocations, promotions } from "~/lib/mock-data";
+import { useEffect, useState } from "react";
+import { recentLocations, promotions } from "~/lib/mock-data";
 import { cn } from "~/lib/utils";
+import type { SavedPlace } from "~/server/graphql/types";
 
 interface HomeScreenProps {
   onSearchClick: () => void;
   onLocationSelect: (name: string, address: string) => void;
 }
+
+const GQL_ENDPOINT = "http://localhost:3000/api/graphql";
+
+const myQuery = `
+  query GetSavedPlaces {
+    savedPlaces {
+      id
+      name
+      address
+      icon
+    }
+  }
+`;
 
 const savedPlaceIcons = {
   home: Home,
@@ -26,6 +39,36 @@ export function HomeScreen({
   onSearchClick,
   onLocationSelect,
 }: HomeScreenProps) {
+  const [savedPlaces, setSavedPlaces] = useState<SavedPlace[]>([]);
+
+  // auth session check
+
+  useEffect(() => {
+    async function graphqlQuery(query: string, variables = {}) {
+      const response = await fetch(GQL_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          // Add authentication headers if needed, e.g.,
+          // 'Authorization': 'Bearer YOUR_TOKEN',
+        },
+        body: JSON.stringify({
+          query: query,
+          variables: variables,
+        }),
+      });
+
+      const result = await response.json();
+      setSavedPlaces(result.data.savedPlaces);
+      for (let i = 0; i < savedPlaces.length; i++) {
+        console.log(savedPlaces[i]);
+      }
+    }
+
+    graphqlQuery(myQuery);
+  }, []);
+
   return (
     <div className="flex flex-col gap-4 p-4">
       {/* Search bar */}

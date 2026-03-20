@@ -34,6 +34,10 @@ export const resolvers = {
         include: { author: true },
       });
     },
+
+    savedPlaces: async (_parent: unknown, _args: unknown, ctx: Context) => {
+      return ctx.db.savedPlace.findMany();
+    },
   },
 
   Mutation: {

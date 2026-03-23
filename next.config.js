@@ -42,4 +42,5 @@ export default withNextra({
       },
     ];
   },
+  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
 });

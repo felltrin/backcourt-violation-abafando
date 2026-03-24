@@ -1,5 +1,5 @@
 [build]
-  command = "pnpm run build && cp libquery_engine-rhel-openssl-1.0.x.so.node .next/server/app/api/graphql"
+  command = "pnpm run build"
   publish = ".next"
 
 [[plugins]]

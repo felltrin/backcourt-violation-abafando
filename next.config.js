@@ -33,6 +33,9 @@ export default withNextra({
   images: {
     unoptimized: true,
   },
+  experimental: {
+    optimizePackageImports: ["@prisma/client"],
+  },
   async redirects() {
     return [
       {

@@ -2,6 +2,9 @@
   command = "pnpm run build"
   publish = ".next"
 
+[functions]
+  node_bundler = "nft"
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 

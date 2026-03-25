@@ -33,6 +33,9 @@ export default withNextra({
   images: {
     unoptimized: true,
   },
+  outputFileTracingIncludes: {
+    "/api/graphql": ["./generated/prisma/**/*"],
+  },
   async redirects() {
     return [
       {

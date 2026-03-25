@@ -4,6 +4,7 @@
 
 [functions]
   node_bundler = "nft"
+  included_files = ["generated/prisma/**"]
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"

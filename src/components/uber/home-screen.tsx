@@ -7,6 +7,7 @@ import {
   MapPin,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { graphqlRequest, queries } from "~/lib/graphql-client";
 import { cn } from "~/lib/utils";
 import type {
   Promotion,
@@ -18,40 +19,6 @@ interface HomeScreenProps {
   onSearchClick: () => void;
   onLocationSelect: (name: string, address: string) => void;
 }
-
-const GQL_ENDPOINT = "http://localhost:3000/api/graphql";
-
-const savedPlacesQuery = `
-  query GetSavedPlaces {
-    savedPlaces {
-      id
-      name
-      address
-      icon
-    }
-  }
-`;
-
-const recentLocationsQuery = `
-  query GetRecentLocations {
-    recentLocations {
-      id
-      name
-      address
-    }
-  }
-`;
-
-const promotionsQuery = `
-  query GetPromotions {
-    promotions {
-      id
-      title
-      description
-      discount
-    }
-  }
-`;
 
 const savedPlaceIcons = {
   home: Home,
@@ -70,69 +37,15 @@ export function HomeScreen({
   // auth session check
 
   useEffect(() => {
-    async function savedPlacesGQLQuery(query: string, variables = {}) {
-      const response = await fetch(GQL_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          // Add authentication headers if needed, e.g.,
-          // 'Authorization': 'Bearer YOUR_TOKEN',
-        },
-        body: JSON.stringify({
-          query: query,
-          variables: variables,
-        }),
-      });
-
-      const result = await response.json();
-      const savedPlacesData = result.data.savedPlaces;
-      setSavedPlaces(savedPlacesData);
-    }
-
-    async function recentLocationsGQLQuery(query: string, variables = {}) {
-      const response = await fetch(GQL_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          // Add authentication headers if needed, e.g.,
-          // 'Authorization': 'Bearer YOUR_TOKEN',
-        },
-        body: JSON.stringify({
-          query: query,
-          variables: variables,
-        }),
-      });
-
-      const result = await response.json();
-      const recentLocationsData = result.data.recentLocations;
-      setRecentLocations(recentLocationsData);
-    }
-
-    async function promotionsGQLQuery(query: string, variables = {}) {
-      const response = await fetch(GQL_ENDPOINT, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          // Add authentication headers if needed, e.g.,
-          // 'Authorization': 'Bearer YOUR_TOKEN',
-        },
-        body: JSON.stringify({
-          query: query,
-          variables: variables,
-        }),
-      });
-
-      const result = await response.json();
-      const promotionsData = result.data.promotions;
-      setPromotions(promotionsData);
-    }
-
-    savedPlacesGQLQuery(savedPlacesQuery);
-    recentLocationsGQLQuery(recentLocationsQuery);
-    promotionsGQLQuery(promotionsQuery);
+    graphqlRequest(queries.GET_SAVED_PLACES).then((result) => {
+      setSavedPlaces(result.savedPlaces);
+    });
+    graphqlRequest(queries.GET_RECENT_LOCATIONS).then((result) => {
+      setRecentLocations(result.recentLocations);
+    });
+    graphqlRequest(queries.GET_PROMOTIONS).then((result) => {
+      setPromotions(result.promotions);
+    });
   }, []);
 
   return (

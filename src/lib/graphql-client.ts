@@ -90,6 +90,38 @@ export const queries = {
       }
     }
   `,
+
+  GET_PROMOTIONS: `
+    query GetPromotions {
+      promotions {
+        id
+        title
+        description
+        discount
+      }
+    }
+  `,
+
+  GET_RECENT_LOCATIONS: `
+    query GetRecentLocations {
+      recentLocations {
+        id
+        name
+        address
+      }
+    }
+  `,
+
+  GET_SAVED_PLACES: `
+    query GetSavedPlaces {
+      savedPlaces {
+        id
+        name
+        address
+        icon
+      }
+    }
+  `,
 };
 
 export const mutations = {

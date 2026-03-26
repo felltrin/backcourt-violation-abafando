@@ -50,6 +50,13 @@ export const resolvers = {
     rideTypes: async (_parent: unknown, _args: unknown, ctx: Context) => {
       return ctx.db.rideType.findMany();
     },
+
+    driver: async (_parent: unknown, args: { id: string }, ctx: Context) => {
+      return ctx.db.driver.findUnique({
+        where: { id: args.id },
+        // include: { eta: true },
+      });
+    },
   },
 
   Mutation: {

@@ -1,10 +1,10 @@
-const GRAPHQL_ENDPOINT = "/api/graphql";
+import { env } from "~/env";
 
 export async function graphqlRequest<T>(
   query: string,
   variables?: Record<string, unknown>,
 ): Promise<T> {
-  const response = await fetch(GRAPHQL_ENDPOINT, {
+  const response = await fetch(env.NEXT_PUBLIC_API_ENDPOINT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -133,6 +133,20 @@ export const queries = {
         eta
         icon
         basePrice
+      }
+    }
+  `,
+
+  GET_DRIVER: `
+    query GetDriver($id: ID!) {
+      driver(id: $id) {
+        name
+        rating
+        trips
+        avatarInitials
+        vehicle
+        eta
+        licensePlate
       }
     }
   `,

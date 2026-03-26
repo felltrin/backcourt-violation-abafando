@@ -10,8 +10,9 @@ import {
   Star,
   Navigation,
 } from "lucide-react";
-import { mockDriver, type RideType } from "~/lib/mock-data";
+import { type RideType } from "~/lib/mock-data";
 import { cn } from "~/lib/utils";
+import { graphqlRequest, queries } from "~/lib/graphql-client";
 
 interface RideTrackingProps {
   ride: RideType;
@@ -27,10 +28,21 @@ export function RideTracking({
   onComplete,
 }: RideTrackingProps) {
   const [status, setStatus] = useState<RideStatus>("matching");
-  const [eta, setEta] = useState(mockDriver.eta);
+  const [eta, setEta] = useState(0);
   const [rideEta, setRideEta] = useState(18);
   const [rating, setRating] = useState(0);
   const [hoveredStar, setHoveredStar] = useState(0);
+  const [mockDriver, setMockDriver] = useState(undefined);
+
+  useEffect(() => {
+    // TODO: change to fetch the closest driver instead of the hardcoded one
+    graphqlRequest(queries.GET_DRIVER, { id: "69a0c4a220eb4bdeaf751f2e" }).then(
+      (result) => {
+        setMockDriver(result.driver);
+        setEta(result.driver.eta);
+      },
+    );
+  }, []);
 
   useEffect(() => {
     if (status === "matching") {

@@ -92,6 +92,7 @@ type Query {
   recentLocations: [RecentLocation!]
   promotions: [Promotion!]
   rideTypes: [RideType!]
+  driver(id: ID!): Driver
 }
 
 type Mutation {

@@ -122,6 +122,20 @@ export const queries = {
       }
     }
   `,
+
+  GET_RIDETYPES: `
+    query GetRideTypes {
+      rideTypes {
+        id
+        name
+        description
+        capacity
+        eta
+        icon
+        basePrice
+      }
+    }
+  `,
 };
 
 export const mutations = {

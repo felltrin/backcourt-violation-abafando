@@ -110,6 +110,7 @@ export type Query = {
   promotions?: Maybe<Array<Promotion>>;
   publishedPosts: Array<Post>;
   recentLocations?: Maybe<Array<RecentLocation>>;
+  rideTypes?: Maybe<Array<RideType>>;
   savedPlaces?: Maybe<Array<SavedPlace>>;
   user?: Maybe<User>;
   users: Array<User>;
@@ -155,6 +156,7 @@ export type RideType = {
   capacity: Scalars['Int']['output'];
   description: Scalars['String']['output'];
   eta: Scalars['String']['output'];
+  icon: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   priceMultiplier: Scalars['Float']['output'];
@@ -340,6 +342,7 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   promotions?: Resolver<Maybe<Array<ResolversTypes['Promotion']>>, ParentType, ContextType>;
   publishedPosts?: Resolver<Array<ResolversTypes['Post']>, ParentType, ContextType>;
   recentLocations?: Resolver<Maybe<Array<ResolversTypes['RecentLocation']>>, ParentType, ContextType>;
+  rideTypes?: Resolver<Maybe<Array<ResolversTypes['RideType']>>, ParentType, ContextType>;
   savedPlaces?: Resolver<Maybe<Array<ResolversTypes['SavedPlace']>>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
@@ -372,6 +375,7 @@ export type RideTypeResolvers<ContextType = Context, ParentType extends Resolver
   capacity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   eta?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  icon?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   priceMultiplier?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;

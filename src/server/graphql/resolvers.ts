@@ -46,6 +46,10 @@ export const resolvers = {
     promotions: async (_parent: unknown, _args: unknown, ctx: Context) => {
       return ctx.db.promotion.findMany();
     },
+
+    rideTypes: async (_parent: unknown, _args: unknown, ctx: Context) => {
+      return ctx.db.rideType.findMany();
+    },
   },
 
   Mutation: {

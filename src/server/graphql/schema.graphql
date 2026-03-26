@@ -22,6 +22,7 @@ type RideType {
   eta: String!
   priceMultiplier: Float!
   basePrice: Float!
+  icon: String!
 }
 
 type SearchSuggestion {
@@ -90,6 +91,7 @@ type Query {
   savedPlaces: [SavedPlace!]
   recentLocations: [RecentLocation!]
   promotions: [Promotion!]
+  rideTypes: [RideType!]
 }
 
 type Mutation {

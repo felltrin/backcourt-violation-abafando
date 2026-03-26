@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Car,
   CarFront,
@@ -11,8 +11,9 @@ import {
   CreditCard,
   Clock,
 } from "lucide-react";
-import { rideTypes, type RideType } from "~/lib/mock-data";
 import { cn } from "~/lib/utils";
+import type { RideType } from "~/server/graphql/types";
+import { graphqlRequest, queries } from "~/lib/graphql-client";
 
 interface RideSelectorProps {
   destination: string;
@@ -34,6 +35,13 @@ export function RideSelector({
   onBack,
 }: RideSelectorProps) {
   const [selectedRide, setSelectedRide] = useState<string>("uberx");
+  const [rideTypes, setRideTypes] = useState<RideType[]>([]);
+
+  useEffect(() => {
+    graphqlRequest(queries.GET_RIDETYPES).then((result) => {
+      setRideTypes(result.rideTypes);
+    });
+  }, []);
 
   const selected = rideTypes.find((r) => r.id === selectedRide) ?? rideTypes[0];
 

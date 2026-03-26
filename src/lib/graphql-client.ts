@@ -150,6 +150,16 @@ export const queries = {
       }
     }
   `,
+
+  GET_SEARCH_SUGGESTIONS: `
+    query GetSearchSuggestions {
+      searchSuggestions {
+        id
+        name
+        address
+      }
+    }
+  `,
 };
 
 export const mutations = {

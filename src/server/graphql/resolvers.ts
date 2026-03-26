@@ -57,6 +57,14 @@ export const resolvers = {
         // include: { eta: true },
       });
     },
+
+    searchSuggestions: async (
+      _parent: unknown,
+      _args: unknown,
+      ctx: Context,
+    ) => {
+      return ctx.db.searchSuggestion.findMany();
+    },
   },
 
   Mutation: {

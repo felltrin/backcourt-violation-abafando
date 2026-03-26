@@ -1,9 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeft, MapPin, Circle, Square, Clock, Star } from "lucide-react";
-import { recentLocations, searchSuggestions } from "~/lib/mock-data";
 import { cn } from "~/lib/utils";
+import { graphqlRequest, queries } from "~/lib/graphql-client";
+import {
+  type SearchSuggestion,
+  type RecentLocation,
+} from "~/server/graphql/types";
 
 interface SearchPanelProps {
   onBack: () => void;
@@ -21,6 +25,19 @@ export function SearchPanel({
   const [focusedField, setFocusedField] = useState<"pickup" | "dropoff">(
     "dropoff",
   );
+  const [recentLocations, setRecentLocations] = useState<RecentLocation[]>([]);
+  const [searchSuggestions, setSearchSuggestions] = useState<
+    SearchSuggestion[]
+  >([]);
+
+  useEffect(() => {
+    graphqlRequest(queries.GET_RECENT_LOCATIONS).then((result) => {
+      setRecentLocations(result.recentLocations);
+    });
+    graphqlRequest(queries.GET_SEARCH_SUGGESTIONS).then((result) => {
+      setSearchSuggestions(result.searchSuggestions);
+    });
+  }, []);
 
   const filteredLocations =
     dropoff.length > 0

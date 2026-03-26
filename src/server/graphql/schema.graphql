@@ -93,6 +93,7 @@ type Query {
   promotions: [Promotion!]
   rideTypes: [RideType!]
   driver(id: ID!): Driver
+  searchSuggestions: [SearchSuggestion!]
 }
 
 type Mutation {

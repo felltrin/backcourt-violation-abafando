@@ -9,15 +9,24 @@ import {
 import { useEffect, useState } from "react";
 import { graphqlRequest, queries } from "~/lib/graphql-client";
 import { cn } from "~/lib/utils";
-import type {
-  Promotion,
-  RecentLocation,
-  SavedPlace,
-} from "~/server/graphql/types";
+import type { Promotion, RecentLocation } from "~/server/graphql/types";
+import { type SavedPlace } from "~/lib/mock-data";
 
 interface HomeScreenProps {
   onSearchClick: () => void;
   onLocationSelect: (name: string, address: string) => void;
+}
+
+interface SavedPlacesResult {
+  savedPlaces: SavedPlace[];
+}
+
+interface RecentLocationsResult {
+  recentLocations: RecentLocation[];
+}
+
+interface PromotionsResult {
+  promotions: Promotion[];
 }
 
 const savedPlaceIcons = {
@@ -37,13 +46,17 @@ export function HomeScreen({
   // auth session check
 
   useEffect(() => {
-    graphqlRequest(queries.GET_SAVED_PLACES).then((result) => {
-      setSavedPlaces(result.savedPlaces);
-    });
-    graphqlRequest(queries.GET_RECENT_LOCATIONS).then((result) => {
-      setRecentLocations(result.recentLocations);
-    });
-    graphqlRequest(queries.GET_PROMOTIONS).then((result) => {
+    graphqlRequest<SavedPlacesResult>(queries.GET_SAVED_PLACES).then(
+      (result) => {
+        setSavedPlaces(result.savedPlaces);
+      },
+    );
+    graphqlRequest<RecentLocationsResult>(queries.GET_RECENT_LOCATIONS).then(
+      (result) => {
+        setRecentLocations(result.recentLocations);
+      },
+    );
+    graphqlRequest<PromotionsResult>(queries.GET_PROMOTIONS).then((result) => {
       setPromotions(result.promotions);
     });
   }, []);

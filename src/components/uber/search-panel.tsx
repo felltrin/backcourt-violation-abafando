@@ -15,6 +15,14 @@ interface SearchPanelProps {
   initialPickup?: string;
 }
 
+interface SearchSuggestionsResult {
+  searchSuggestions: SearchSuggestion[];
+}
+
+interface RecentLocationsResult {
+  recentLocations: RecentLocation[];
+}
+
 export function SearchPanel({
   onBack,
   onSelectDestination,
@@ -31,10 +39,14 @@ export function SearchPanel({
   >([]);
 
   useEffect(() => {
-    graphqlRequest(queries.GET_RECENT_LOCATIONS).then((result) => {
-      setRecentLocations(result.recentLocations);
-    });
-    graphqlRequest(queries.GET_SEARCH_SUGGESTIONS).then((result) => {
+    graphqlRequest<RecentLocationsResult>(queries.GET_RECENT_LOCATIONS).then(
+      (result) => {
+        setRecentLocations(result.recentLocations);
+      },
+    );
+    graphqlRequest<SearchSuggestionsResult>(
+      queries.GET_SEARCH_SUGGESTIONS,
+    ).then((result) => {
       setSearchSuggestions(result.searchSuggestions);
     });
   }, []);

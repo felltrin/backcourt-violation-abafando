@@ -14,6 +14,10 @@ import { type RideHistory } from "~/lib/mock-data";
 import { cn } from "~/lib/utils";
 import { graphqlRequest, queries } from "~/lib/graphql-client";
 
+interface RideHistoryResult {
+  rideHistory: RideHistory[];
+}
+
 export function ActivityScreen() {
   const [filter, setFilter] = useState<"all" | "completed" | "cancelled">(
     "all",
@@ -21,9 +25,11 @@ export function ActivityScreen() {
   const [rideHistory, setRideHistory] = useState<RideHistory[]>([]);
 
   useEffect(() => {
-    graphqlRequest(queries.GET_RIDE_HISTORY).then((result) => {
-      setRideHistory(result.rideHistory);
-    });
+    graphqlRequest<RideHistoryResult>(queries.GET_RIDE_HISTORY).then(
+      (result) => {
+        setRideHistory(result.rideHistory);
+      },
+    );
   }, []);
 
   const filteredRides = rideHistory.filter((ride) => {

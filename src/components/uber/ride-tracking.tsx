@@ -10,7 +10,7 @@ import {
   Star,
   Navigation,
 } from "lucide-react";
-import { type RideType } from "~/lib/mock-data";
+import { type Driver, type RideType } from "~/lib/mock-data";
 import { cn } from "~/lib/utils";
 import { graphqlRequest, queries } from "~/lib/graphql-client";
 
@@ -19,6 +19,21 @@ interface RideTrackingProps {
   destination: string;
   onComplete: () => void;
 }
+
+interface DriverResult {
+  driver: Driver;
+}
+
+const EmptyDriver: Driver = {
+  id: "",
+  name: "",
+  rating: 0,
+  trips: 0,
+  vehicle: "",
+  licensePlate: "",
+  eta: 0,
+  avatarInitials: "",
+};
 
 type RideStatus = "matching" | "arriving" | "in-ride" | "rating";
 
@@ -32,16 +47,16 @@ export function RideTracking({
   const [rideEta, setRideEta] = useState(18);
   const [rating, setRating] = useState(0);
   const [hoveredStar, setHoveredStar] = useState(0);
-  const [mockDriver, setMockDriver] = useState(undefined);
+  const [mockDriver, setMockDriver] = useState<Driver>(EmptyDriver);
 
   useEffect(() => {
     // TODO: change to fetch the closest driver instead of the hardcoded one
-    graphqlRequest(queries.GET_DRIVER, { id: "69a0c4a220eb4bdeaf751f2e" }).then(
-      (result) => {
-        setMockDriver(result.driver);
-        setEta(result.driver.eta);
-      },
-    );
+    graphqlRequest<DriverResult>(queries.GET_DRIVER, {
+      id: "69a0c4a220eb4bdeaf751f2e",
+    }).then((result) => {
+      setMockDriver(result.driver);
+      setEta(result.driver.eta);
+    });
   }, []);
 
   useEffect(() => {

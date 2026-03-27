@@ -28,7 +28,6 @@ export async function graphqlRequest<T>(
   return json.data as T;
 }
 
-// Example usage with typed queries
 export const queries = {
   GET_USERS: `
     query GetUsers {
@@ -157,6 +156,22 @@ export const queries = {
         id
         name
         address
+      }
+    }
+  `,
+
+  GET_RIDE_HISTORY: `
+    query GetRideHistory {
+      rideHistory {
+        id
+        status
+        vehicleType
+        price
+        pickup
+        dropoff
+        date
+        distance
+        duration
       }
     }
   `,

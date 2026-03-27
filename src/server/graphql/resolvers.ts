@@ -65,6 +65,10 @@ export const resolvers = {
     ) => {
       return ctx.db.searchSuggestion.findMany();
     },
+
+    rideHistory: async (_parent: unknown, _args: unknown, ctx: Context) => {
+      return ctx.db.rideHistory.findMany();
+    },
   },
 
   Mutation: {

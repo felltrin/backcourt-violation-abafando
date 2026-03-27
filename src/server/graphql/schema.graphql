@@ -94,6 +94,7 @@ type Query {
   rideTypes: [RideType!]
   driver(id: ID!): Driver
   searchSuggestions: [SearchSuggestion!]
+  rideHistory: [RideHistory!]
 }
 
 type Mutation {

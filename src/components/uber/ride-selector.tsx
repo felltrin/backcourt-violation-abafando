@@ -12,13 +12,17 @@ import {
   Clock,
 } from "lucide-react";
 import { cn } from "~/lib/utils";
-import type { RideType } from "~/server/graphql/types";
+import { type RideType } from "~/lib/mock-data";
 import { graphqlRequest, queries } from "~/lib/graphql-client";
 
 interface RideSelectorProps {
   destination: string;
   onConfirm: (ride: RideType) => void;
   onBack: () => void;
+}
+
+interface ResultType {
+  rideTypes: RideType[];
 }
 
 const rideIcons = {
@@ -38,7 +42,7 @@ export function RideSelector({
   const [rideTypes, setRideTypes] = useState<RideType[]>([]);
 
   useEffect(() => {
-    graphqlRequest(queries.GET_RIDETYPES).then((result) => {
+    graphqlRequest<ResultType>(queries.GET_RIDETYPES).then((result) => {
       setRideTypes(result.rideTypes);
     });
   }, []);

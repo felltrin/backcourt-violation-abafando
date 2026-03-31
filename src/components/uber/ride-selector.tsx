@@ -42,9 +42,16 @@ export function RideSelector({
   const [rideTypes, setRideTypes] = useState<RideType[]>([]);
 
   useEffect(() => {
-    graphqlRequest<ResultType>(queries.GET_RIDETYPES).then((result) => {
-      setRideTypes(result.rideTypes);
-    });
+    const fetchRideTypes = async () => {
+      try {
+        const result = await graphqlRequest<ResultType>(queries.GET_RIDETYPES);
+        setRideTypes(result.rideTypes);
+      } catch (error) {
+        console.error("There has been an error fetching the data: ", error);
+      }
+    };
+
+    void fetchRideTypes();
   }, []);
 
   const selected = rideTypes.find((r) => r.id === selectedRide) ?? rideTypes[0];

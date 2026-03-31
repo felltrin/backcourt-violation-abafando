@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Search,
   Home,
@@ -46,19 +48,30 @@ export function HomeScreen({
   // auth session check
 
   useEffect(() => {
-    graphqlRequest<SavedPlacesResult>(queries.GET_SAVED_PLACES).then(
-      (result) => {
-        setSavedPlaces(result.savedPlaces);
-      },
-    );
-    graphqlRequest<RecentLocationsResult>(queries.GET_RECENT_LOCATIONS).then(
-      (result) => {
-        setRecentLocations(result.recentLocations);
-      },
-    );
-    graphqlRequest<PromotionsResult>(queries.GET_PROMOTIONS).then((result) => {
-      setPromotions(result.promotions);
-    });
+    const fetchData = async () => {
+      try {
+        const savedPlacesData = await graphqlRequest<SavedPlacesResult>(
+          queries.GET_SAVED_PLACES,
+        );
+
+        const recentLocationsResult =
+          await graphqlRequest<RecentLocationsResult>(
+            queries.GET_RECENT_LOCATIONS,
+          );
+
+        const promotionsResult = await graphqlRequest<PromotionsResult>(
+          queries.GET_PROMOTIONS,
+        );
+
+        setSavedPlaces(savedPlacesData.savedPlaces);
+        setRecentLocations(recentLocationsResult.recentLocations);
+        setPromotions(promotionsResult.promotions);
+      } catch (error) {
+        console.error("There has been an error: ", error);
+      }
+    };
+
+    void fetchData();
   }, []);
 
   return (

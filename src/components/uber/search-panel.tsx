@@ -39,16 +39,20 @@ export function SearchPanel({
   >([]);
 
   useEffect(() => {
-    graphqlRequest<RecentLocationsResult>(queries.GET_RECENT_LOCATIONS).then(
-      (result) => {
-        setRecentLocations(result.recentLocations);
-      },
-    );
-    graphqlRequest<SearchSuggestionsResult>(
-      queries.GET_SEARCH_SUGGESTIONS,
-    ).then((result) => {
-      setSearchSuggestions(result.searchSuggestions);
-    });
+    const fetchData = async () => {
+      const result = await graphqlRequest<RecentLocationsResult>(
+        queries.GET_RECENT_LOCATIONS,
+      );
+      const searchSuggestionsResult =
+        await graphqlRequest<SearchSuggestionsResult>(
+          queries.GET_SEARCH_SUGGESTIONS,
+        );
+
+      setRecentLocations(result.recentLocations);
+      setSearchSuggestions(searchSuggestionsResult.searchSuggestions);
+    };
+
+    void fetchData();
   }, []);
 
   const filteredLocations =

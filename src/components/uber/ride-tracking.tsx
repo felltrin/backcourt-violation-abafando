@@ -51,12 +51,19 @@ export function RideTracking({
 
   useEffect(() => {
     // TODO: change to fetch the closest driver instead of the hardcoded one
-    graphqlRequest<DriverResult>(queries.GET_DRIVER, {
-      id: "69a0c4a220eb4bdeaf751f2e",
-    }).then((result) => {
-      setMockDriver(result.driver);
-      setEta(result.driver.eta);
-    });
+    const fetchData = async () => {
+      try {
+        const result = await graphqlRequest<DriverResult>(queries.GET_DRIVER, {
+          id: "69a0c4a220eb4bdeaf751f2e",
+        });
+        setMockDriver(result.driver);
+        setEta(result.driver.eta);
+      } catch (error) {
+        console.error("There has been an error fetching the data: ", error);
+      }
+    };
+
+    void fetchData();
   }, []);
 
   useEffect(() => {

@@ -23,19 +23,31 @@ export function ActivityScreen() {
     "all",
   );
   const [rideHistory, setRideHistory] = useState<RideHistory[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    graphqlRequest<RideHistoryResult>(queries.GET_RIDE_HISTORY).then(
-      (result) => {
-        setRideHistory(result.rideHistory);
-      },
-    );
+    const fetchRideHistory = async () => {
+      try {
+        const data = await graphqlRequest<RideHistoryResult>(
+          queries.GET_RIDE_HISTORY,
+        );
+        setRideHistory(data.rideHistory);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    void fetchRideHistory();
   }, []);
 
   const filteredRides = rideHistory.filter((ride) => {
     if (filter === "all") return true;
     return ride.status === filter;
   });
+
+  if (loading) return <div className="p-8">Loading...</div>;
 
   return (
     <div className="bg-background flex h-full flex-col">

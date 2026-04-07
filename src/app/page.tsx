@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { MapView } from "~/components/uber/map-view";
 import { BottomNav } from "~/components/uber/bottom-nav";
 import { HomeScreen } from "~/components/uber/home-screen";
@@ -20,6 +20,54 @@ export default function UberApp() {
   const [destination, setDestination] = useState("");
   //   const [destinationAddress, setDestinationAddress] = useState("");
   const [selectedRide, setSelectedRide] = useState<RideType | null>(null);
+
+  // Draggable panel state: stored as a percentage of viewport height (20-85)
+  const [panelHeight, setPanelHeight] = useState(55);
+  const isDragging = useRef(false);
+  const [activeDrag, setActiveDrag] = useState(false);
+  const dragStartY = useRef(0);
+  const dragStartHeight = useRef(55);
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  const handleDragStart = useCallback(
+    (e: React.PointerEvent) => {
+      isDragging.current = true;
+      setActiveDrag(true);
+      dragStartY.current = e.clientY;
+      dragStartHeight.current = panelHeight;
+      (e.target as HTMLElement).setPointerCapture(e.pointerId);
+    },
+    [panelHeight],
+  );
+
+  const handleDragMove = useCallback((e: React.PointerEvent) => {
+    if (!isDragging.current) return;
+    const deltaY = dragStartY.current - e.clientY;
+    const deltaPercent = (deltaY / window.innerHeight) * 100;
+    const newHeight = Math.min(
+      85,
+      Math.max(20, dragStartHeight.current + deltaPercent),
+    );
+    setPanelHeight(newHeight);
+  }, []);
+
+  const handleDragEnd = useCallback(() => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    setActiveDrag(false);
+    // Snap to nearest breakpoint for a polished feel
+    setPanelHeight((prev) => {
+      if (prev < 30) return 25;
+      if (prev < 50) return 40;
+      if (prev < 65) return 55;
+      return 80;
+    });
+  }, []);
+
+  // Reset panel height when view changes
+  useEffect(() => {
+    setPanelHeight(55);
+  }, [view]);
 
   const handleSearchClick = useCallback(() => {
     setView("search");
@@ -108,8 +156,27 @@ export default function UberApp() {
         {activeTab === "home" && (
           <>
             {view === "home" && (
-              <div className="bg-background max-h-[55dvh] overflow-y-auto rounded-t-2xl">
-                <div className="bg-muted-foreground/30 mx-auto mt-2 mb-2 h-1 w-10 rounded-full" />
+              <div
+                ref={panelRef}
+                style={{ maxHeight: `${panelHeight}dvh` }}
+                className={`bg-background overflow-y-auto rounded-t-2xl ${activeDrag ? "" : "transition-[max-height] duration-200 ease-out"}`}
+              >
+                {/* Drag handle */}
+                <div
+                  className="flex cursor-grab touch-none items-center justify-center py-2.5 active:cursor-grabbing"
+                  onPointerDown={handleDragStart}
+                  onPointerMove={handleDragMove}
+                  onPointerUp={handleDragEnd}
+                  onPointerCancel={handleDragEnd}
+                  role="separator"
+                  aria-orientation="horizontal"
+                  aria-label="Drag to resize panel"
+                  aria-valuenow={Math.round(panelHeight)}
+                  aria-valuemin={20}
+                  aria-valuemax={85}
+                >
+                  <div className="bg-muted-foreground/40 hover:bg-muted-foreground/60 h-1 w-10 rounded-full transition-colors" />
+                </div>
                 <HomeScreen
                   onSearchClick={handleSearchClick}
                   onLocationSelect={handleLocationSelect}
